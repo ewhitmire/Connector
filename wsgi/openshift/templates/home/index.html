@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ember Starter Kit</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css">
+</head>
+
+<body>
+  <script type="text/x-handlebars">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">Connections</a>
+        <ul class="nav">
+          <li>{{#link-to 'about'}}About{{/link-to}}</li>
+          <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+          <li>{{#link-to 'jobs'}}Jobs{{/link-to}}</li>
+        </ul>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="about"> 
+    <div class="about"> 
+      A place to find a amature creative professional for a job to help build their resume.
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="login"> 
+    <div class="login"> 
+      This will eventually be a login page, but I am playing around and I want buttons to click.
+    </div>
+  </script>
+
+<!--
+<script type="text/x-handlebars" id="jobs"> 
+    <div class="container-fluid"> 
+      <div class="row-fluid"> 
+        <div class="span3">
+          <table class='table'>
+            <thread>
+              <tr><th>Recent Job Posts</th></tr>
+            </thread>
+            {{#each}} 
+            <tr><td>
+              {{title}} <small class='muted'> by {{author.name}}</small>
+            </td></tr>
+            {{/each}}
+          </table>  
+        </div>
+        <div class="span9">
+          {{outlet}}
+        </div>
+      </div>
+    </div>
+  </script>
+-->
+  <script src="js/libs/jquery-1.11.0.min.js"></script>
+  <script src="js/libs/handlebars-1.1.2.js"></script>
+  <script src="js/libs/ember-1.4.0.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+  <script src="js/app.js"></script>
+  </body>
+</html>
