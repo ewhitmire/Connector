@@ -54,7 +54,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-    'connector'
+    'connector',
+    'autoslug',
+    'ember',
+    'djangojs'
 )
 
 MIDDLEWARE_CLASSES = (

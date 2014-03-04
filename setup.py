@@ -9,6 +9,10 @@ packages = ['Django<=1.6',
                   'CherryPy', # If you want serve Django through CherryPy
                   'static3',  # If you want serve the static files in the same server
                   'south',
+                  'django-autoslug',
+                  'django.js',
+                  'django-ember',
+                  
                    #  'mysql-connector-python',
                    #  'pymongo',
                    #  'psycopg2',
