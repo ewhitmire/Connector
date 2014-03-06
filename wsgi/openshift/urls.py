@@ -15,6 +15,10 @@ urlpatterns = patterns('',
     # url(r'^$', 'openshift.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^people/(?P<pk>\d+)/$', ProfileView.as_view(), name='profile_url'),
+    url(r'^skills/all$', SkillsView.as_view(), name='skills_url'),
+    url(r'^skills/new$', CreateSkillsView.as_view(), name='new_skill_url'),
+    url(r'^offers/all$', OffersView.as_view(), name='offers_url'),
+    url(r'^offers/new$', CreateOfferView.as_view(), name='new_offer_url'),
     url(r'^admin/', include(admin.site.urls)),
 
 )
