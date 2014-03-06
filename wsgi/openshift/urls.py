@@ -17,4 +17,7 @@ urlpatterns = patterns('',
 
 )
 
+urlpatterns+=patterns('django.contrib.auth.views',
+    url(r'^login$','login',{'template_name':'login.html'}),)
+
 urlpatterns += staticfiles_urlpatterns()

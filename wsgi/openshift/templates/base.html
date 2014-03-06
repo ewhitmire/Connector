@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock title %}</title>
+
+
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/formly.min.css" />
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less" />
+
+    {% block extracss %}{% endblock extracss %}
+
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/less.js"></script>
+
+
+    {% block extrajs %}{% endblock extrajs %}
+</head>
+
+<body>
+    
+    <div id="body" class="container">
+        <div class="row">
+            
+        </div>
+
+        <div id="mainNavTop" class="row">
+            <div class="span12">
+                {% if user.is_authenticated %}
+                    Welcome <a href="">{{ user.get_full_name|default:"No Name" }}</a>!
+                   
+                {% endif %}
+            </div>
+        </div>
+
+        {% block content %}{% endblock content %}
+
+        <div id="footer" class="row">
+            <div class="span12">
+                &copy; {% now "Y" %} Connector            </div>
+        </div>
+    </div>
+</body>
+</html>
