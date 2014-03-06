@@ -5,6 +5,8 @@ from django.contrib import admin
 
 from django.conf import settings
 
+from connector.views import *
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -12,7 +14,8 @@ urlpatterns = patterns('',
     url(r'^$', 'views.home', name='home'),
     # url(r'^$', 'openshift.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    
+    url(r'^/people/(?P<pk>\w+)$', ProfileView.as_view(), name='profile_url'))
+
     url(r'^admin/', include(admin.site.urls)),
 
 )
