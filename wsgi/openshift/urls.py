@@ -14,8 +14,7 @@ urlpatterns = patterns('',
     url(r'^$', 'views.home', name='home'),
     # url(r'^$', 'openshift.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^/people/(?P<pk>\w+)$', ProfileView.as_view(), name='profile_url'))
-
+    url(r'^people/(?P<pk>\d+)/$', ProfileView.as_view(), name='profile_url'),
     url(r'^admin/', include(admin.site.urls)),
 
 )
