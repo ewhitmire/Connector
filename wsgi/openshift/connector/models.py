@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 
@@ -16,6 +17,9 @@ class Member(models.Model):
 	def __str__(self):
 		return self.user.__str__()
 
+	def get_absolute_url(self):
+		return reverse('profile_url', args=[self.id])
+
 class Skill(models.Model):
 	member = models.ForeignKey(Member, default=None)
 	category = models.CharField(max_length=200)
@@ -25,12 +29,18 @@ class Skill(models.Model):
 		return self.category
 
 class Offer(models.Model):
+	STATE_NEW = 0
+	STATE_ACTIVE = 1
+	STATE_PENDING = 2
+	STATE_ACCEPTED = 3
+	STATE_ARCHIVED = 4
+
 	STATE_CHOICES = (
-		("new", "New"),
-		("active", "Active"),
-		("pending", "Pending"),
-		("accepted", "Accepted"),
-		("archived", "Archived"),
+		(STATE_NEW, "New"),
+		(STATE_ACTIVE, "Active"),
+		(STATE_PENDING, "Pending"),
+		(STATE_ACCEPTED, "Accepted"),
+		(STATE_ARCHIVED, "Archived"),
 	)
 	slug = AutoSlugField(populate_from='title')
 	title = models.CharField(max_length=20)

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a href="{% url 'create_offer_url' %}">New offer</a>
+{% for offer in offers %}
+<div>{{ offer.title }}</div>
+{% endfor %}
+
+{% endblock %}

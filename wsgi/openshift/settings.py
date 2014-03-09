@@ -96,6 +96,10 @@ TEMPLATE_DIRS = (
      os.path.join(BASE_DIR,'templates'),
 )
 
+ABSOLUTE_URL_OVERRIDES = {
+   'auth.user': lambda o: o.member.get_absolute_url(),
+}
+
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 if ON_OPENSHIFT:

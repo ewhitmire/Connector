@@ -27,7 +27,7 @@
         <div id="mainNavTop" class="row">
             <div class="span12">
                 {% if user.is_authenticated %}
-                    Welcome <a href="">{{ user.get_full_name|default:"No Name" }}</a>!
+                    Welcome <a href="{{ user.get_absolute_url }}">{{ user.get_full_name|default:"No Name" }}</a>!
                 {% endif %}
             </div>
         </div>
