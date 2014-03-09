@@ -3,15 +3,16 @@
 <head>
     <title>{% block title %}{% endblock title %}</title>
 
+    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/formly.min.css" />
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
     <link type="text/css" rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less" />
 
     {% block extracss %}{% endblock extracss %}
 
-    <script type="text/javascript" src="{{ STATIC_URL }}js/libs/jquery.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/less.js"></script>
 
 
     {% block extrajs %}{% endblock extrajs %}

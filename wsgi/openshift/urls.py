@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^skills/all$', SkillsView.as_view(), name='skills_url'),
     url(r'^skills/new$', login_required(CreateSkillsView.as_view()), name='create_skill_url'),
     url(r'^offers/all$', OffersView.as_view(), name='offers_url'),
+    url(r'^offers/category/(?P<pk>\d+)$', OffersView.as_view(), name='offers_category_url'),
     url(r'^offers/new$', login_required(CreateOfferView.as_view()), name='create_offer_url'),
     url(r'^admin/', include(admin.site.urls)),
 

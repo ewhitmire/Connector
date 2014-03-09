@@ -1,10 +1,65 @@
 {% extends "base.html" %}
+{% load humanize %}
 
 {% block content %}
-
-<a href="{% url 'create_offer_url' %}">New offer</a>
-{% for offer in offers %}
-<div>{{ offer.title }}</div>
+<div class="row">
+    <div class="col-md-8"><!-- breacrumbs --> </div>
+    <div class="col-md-4" style="text-align:right"><a href="{% url 'create_offer_url' %}" class="btn btn-primary">Post a new opportunity</a></div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h1>
+            {% if category %}
+            Opportunities for {{category}}
+            {% else %}
+            Opportunities
+            {% endif %}
+        </h1>
+    </div>
+    <div class="col-md-4" style="text-align:right">
+        <form class="form-inline" role="form">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" id="search" placeholder="Search"/>
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row-fluid">
+    {% for offer in offers %}
+    <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ offer.organization }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row-fluid">
+                <div class="col-xs-6"><h4>{{ offer.category }}</h4></div>
+                <div class="col-xs-6" style="text-align:right"><h4>
+                    {% if offer.is_free %}
+                    Free
+                    {% elif offer.is_set_bid %}
+                    ${{ offer.bid_low|floatformat:2|intcomma }}
+                    {% else %}
+                    ${{offer.bid_low|floatformat:2|intcomma }} - ${{offer.bid_high|floatformat:2|intcomma }}
+                    {% endif %}
+                </h4></div>
+            </div>
+            <div class="row-fluid">
+                <div class="col-xs-12" style="height:80px;overflow:hidden">
+                    <b>{{ offer.title }}</b>
+                    {{ offer.description }}
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="col-xs-12" style="text-align:right">
+                    <a href="#" class="btn btn-default">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endfor %}
-
+</div>
+<div class="clearfix"></div>
 {% endblock %}
