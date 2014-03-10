@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% csrf_token %}
+
+<div class="row">
+    <div class="col-md-8"><!-- breadcrumbs --> </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h1>
+            {{member.user.get_full_name}}
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="https://www.google.com/images/srpr/logo11w.png" alt="{{member.user.get_full_name}} Picture" class="img-thumbnail">
+    </div>
+    <div class="col-md-8">
+        <h3>General Information</h3>
+        Network: {{member.domain}}<br />
+        Email: {{member.user.email}}<br />
+
+        <h3>Skills</h3>
+        {{member.user.skills}}
+		<a href="{% url 'create_skill_url' %}" class="btn btn-primary">Add a New Skill</a>
+
+    </div>
+</div>
+
+
+<div class="clearfix"></div>
+
+
+
+
+{% endblock %}
