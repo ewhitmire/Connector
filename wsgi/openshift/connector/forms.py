@@ -1,6 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
-from models import *
+from connector.models import *
 
 class OfferForm(ModelForm):
     class Meta:
