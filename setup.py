@@ -12,6 +12,7 @@ packages = ['Django<=1.6',
                   'django-autoslug',
                   'django.js',
                   'django-ember',
+                  'Pillow',
                   
                    #  'mysql-connector-python',
                    #  'pymongo',

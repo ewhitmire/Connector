@@ -13,3 +13,4 @@ virtenv/
 dist/
 build/
 *.sqlite3
+media/

@@ -29,4 +29,7 @@ urlpatterns = patterns('',
 urlpatterns+=patterns('django.contrib.auth.views',
     url(r'^login$','login',{'template_name':'login.html'}),)
 
+urlpatterns += patterns('',
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+    'document_root': settings.MEDIA_ROOT}))
 urlpatterns += staticfiles_urlpatterns()
