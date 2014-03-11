@@ -1,42 +1,13 @@
-{% load ember %}
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>Connector</title>
-  {% ember_full_js %}
-  <link rel="stylesheet" href="{% static "css/normalize.css" %}">
-  <link rel="stylesheet" href="{% static "css/style.css" %}">
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css">
+ 
 </head>
 
 <body>
-  <script type="text/x-handlebars">
-    <div class="navbar">
-      <div class="navbar-inner">
-        <a class="brand" href="#">Connections</a>
-        <ul class="nav">
-          <li>{% linkto 'about' %}About{% endlinkto %}</li>
-          <li>{% linkto 'login' %}Login{% endlinkto %}</li>
-          <li>{% linkto 'jobs' %}Jobs{% endlinkto %}</li>
-        </ul>
-      </div>
-    </div>
-  </script>
-
-  <script type="text/x-handlebars" id="about"> 
-    <div class="about"> 
-      A place to find a amature creative professional for a job to help build their resume.
-    </div>
-  </script>
-
-  <script type="text/x-handlebars" id="login"> 
-    <div class="login"> 
-      This will eventually be a login page, but I am playing around and I want buttons to click.
-    </div>
-  </script>
-
-  <script src="{% static "js/app.js" %}"></script>
-  </body>
+  
+</body>
 </html>

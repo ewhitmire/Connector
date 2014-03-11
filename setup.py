@@ -10,8 +10,6 @@ packages = ['Django<=1.6',
                   'static3',  # If you want serve the static files in the same server
                   'south',
                   'django-autoslug',
-                  'django.js',
-                  'django-ember',
                   'Pillow',
                   
                    #  'mysql-connector-python',
