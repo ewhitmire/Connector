@@ -57,8 +57,6 @@ INSTALLED_APPS = (
     'south',
     'connector',
     'autoslug',
-    'ember',
-    'djangojs',
 )
 
 MIDDLEWARE_CLASSES = (
