@@ -17,7 +17,7 @@ class ProfileView(DetailView):
 
 class MyProfileView(ProfileView):
     def get_object(self):
-        return self.request.user
+        return self.request.user.member
 
 class OffersView(ListView):
     model = Offer
