@@ -26,12 +26,22 @@
     </div>
 
     <div class="col-md-6">
-        <h3>General Information</h3>
+        <h3>General Information <a href="{% url 'profile_update_url' %}" class="btn btn-primary">Edit Profile</a></h3>
         Network: {{member.domain}}<br />
         Email: {{member.user.email}}<br />
-        <h3>Skills</h3>
+        <h3>Skills <a href="{% url 'skill_create_url' %}" class="btn btn-primary">Add a New Skill</a></h3>
         
-		<a href="{% url 'skill_create_url' %}" class="btn btn-primary">Add a New Skill</a>
+            {% for skill in member.skill_set.all %}
+                <p>{{skill.category}}</p>
+                {% empty %}
+                <p>You do not have a skill! Would you like to <a href="{% url 'skill_create_url' %}">Add a New Skill</a>?</p>
+            {% endfor %}
+        <h3>Offers <a href="{% url 'offer_create_url' %}" class="btn btn-primary">Add a New Offer</a></h3>
+            {% for offer in member.offer_set.all %}
+                <p>{{offer.category}}</p>
+                {% empty %}
+                <p>You do not have an offer! Would you like to <a href="{% url 'skill_create_url' %}">Create a New Offer</a>?</p>
+            {% endfor %}  
 		
     </div>
 </div>
