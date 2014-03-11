@@ -1,10 +1,55 @@
 {% extends "base.html" %}
+{% load humanize %}
 
 {% block content %}
-
-<a href="{% url 'create_skill_url' %}">New skill</a>
-{% for skill in skills %}
-<div>{{ skill.category }}</div>
+<div class="row">
+    <div class="col-md-8"><!-- breacrumbs --> </div>
+    <div class="col-md-4" style="text-align:right"><a href="{% url 'create_skill_url' %}" class="btn btn-primary">Post a new skill</a></div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h1>
+            {% if category %}
+            Skills for {{category}}
+            {% else %}
+            Skills
+            {% endif %}
+        </h1>
+    </div>
+    <div class="col-md-4" style="text-align:right">
+        <form class="form-inline" role="form">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" id="search" placeholder="Search"/>
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row-fluid">
+    {% for skill in skills %}
+    <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ skill.member.user.get_full_name }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row-fluid">
+                <div class="col-xs-6"><h4>{{ skill.category }}</h4></div>
+            </div>
+            <div class="row-fluid">
+                <div class="col-xs-12" style="height:80px;overflow:hidden">
+                    {{ skill.description }}
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="col-xs-12" style="text-align:right">
+                    <a href="#" class="btn btn-default">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endfor %}
-
+</div>
+<div class="clearfix"></div>
 {% endblock %}
