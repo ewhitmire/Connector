@@ -80,7 +80,7 @@ class OfferDeleteView(DeleteView):
 
 class SkillListView(ListView):
     model = Skill
-    template_name = 'skills/skills.html'
+    template_name = 'skills/skill_list.html'
     context_object_name = 'skills'
 
 
