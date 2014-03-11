@@ -173,7 +173,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 MEDIA_URL = '/media/'
 
 
-OGGING = {
+LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
@@ -190,7 +190,7 @@ OGGING = {
         'logfile': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': "django.log",
+            'filename': os.path.join(BASE_DIR, '..', 'django.log'),
             'maxBytes': 50000,
             'backupCount': 2,
             'formatter': 'standard',
@@ -205,7 +205,7 @@ OGGING = {
         'django': {
             'handlers':['console', 'logfile'],
             'propagate': True,
-            'level':'WARN',
+            'level':'DEBUG',
         },
         'django.db.backends': {
             'handlers': ['console', 'logfile'],
