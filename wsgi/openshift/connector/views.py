@@ -15,6 +15,14 @@ class ProfileView(DetailView):
 
         return context
 
+class MemberUpdateView(UpdateView):
+    model = Member
+    form_class = MemberForm
+    template_name = 'members/member_update.html'
+
+    def get_object(self):
+        return self.request.user.member
+
 class MyProfileView(ProfileView):
     def get_object(self):
         return self.request.user.member

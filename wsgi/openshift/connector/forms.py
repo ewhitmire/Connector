@@ -15,3 +15,10 @@ class SkillForm(ModelForm):
     class Meta:
         model = Skill
         fields = ['category', 'description']
+
+
+class MemberForm(ModelForm):
+    class Meta:
+        model = Member
+        fields = ['domain', 'avatar']
+
