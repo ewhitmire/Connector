@@ -11,7 +11,7 @@ packages = ['Django<=1.6',
                   'south',
                   'django-autoslug',
                   'Pillow',
-                  
+                  'django-allauth'
                    #  'mysql-connector-python',
                    #  'pymongo',
                    #  'psycopg2',

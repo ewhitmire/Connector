@@ -15,17 +15,46 @@ class ProfileView(DetailView):
 
         return context
 
-class MemberUpdateView(UpdateView):
+class MemberUpdateView(DetailView):
     model = Member
-    form_class = MemberForm
     template_name = 'members/member_update.html'
 
     def get_object(self):
         return self.request.user.member
 
+    def get(self, request, *args, **kwargs):
+        self.member_form = MemberForm(instance = request.user.member)
+        self.user_form = UserForm(instance = request.user)
+        return super(MemberUpdateView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.member_form = MemberForm(request.POST, request.FILES, instance = request.user.member)
+        self.user_form = UserForm(request.POST, instance = request.user)
+        if self.member_form.is_valid() and self.user_form.is_valid():
+            self.user_form.save()
+            member = self.member_form.save()
+            member.is_setup = True
+            member.save()
+            return HttpResponseRedirect(reverse("my_profile_url"))
+        else:
+            return super(MemberUpdateView, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(MemberUpdateView, self).get_context_data(**kwargs)
+        context['member_form'] = self.member_form
+        context['user_form'] = self.user_form
+        return context
+
+
 class MyProfileView(ProfileView):
+
     def get_object(self):
         return self.request.user.member
+
+    def get(self, request, *args, **kwargs):
+        if not self.get_object().is_setup:
+            return HttpResponseRedirect(reverse("member_update_url"))
+        return super(MyProfileView, self).get(request, *args, **kwargs)
 
 class OfferListView(ListView):
     model = Offer

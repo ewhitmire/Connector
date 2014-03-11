@@ -22,6 +22,7 @@ class Domain(models.Model):
 class Member(models.Model):
 	domain = models.ForeignKey(Domain, default=None)
 	user = models.OneToOneField(User)
+	is_setup = models.BooleanField(editable=False, default=False)
 	avatar = models.ImageField(upload_to=make_member_image_name, storage=OverwriteStorage(), blank=True, null=True)
 
 	def __str__(self):
