@@ -125,7 +125,7 @@ class SkillCreateView(CreateView):
     model = Skill
     object = model
     form_class = SkillForm
-    template_name = 'skills/create.html'
+    template_name = 'skills/skill_create.html'
 
     def get_context_data(self, **kwargs):
         return kwargs
