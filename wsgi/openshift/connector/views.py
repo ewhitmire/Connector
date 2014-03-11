@@ -109,3 +109,17 @@ class SkillCreateView(CreateView):
                 return self.render_to_response(self.get_context_data(form=form))
         else:
             form = SkillForm()
+
+class SkillDetailView(DetailView):
+    model = Skill
+    template_name = 'skills/skill_detail.html'
+
+class SkillUpdateView(UpdateView):
+    model = Skill
+    form_class = SkillForm
+    template_name = 'skills/skill_update.html'
+
+class SkillDeleteView(DeleteView):
+    model = Skill
+    success_url = reverse_lazy('skill_list_url')
+    template_name = 'skills/skill_confirm_delete.html'
