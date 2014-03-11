@@ -45,6 +45,8 @@ class Skill(models.Model):
 	def __str__(self):
 		return self.category.__str__()
 
+	def get_absolute_url(self):
+		return reverse('skill_detail_url', args=[self.id])
 
 class Offer(models.Model):
 	STATE_NEW = 0

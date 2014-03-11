@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form action="{% url 'offer_update_url' offer.pk %}" method="post">{% csrf_token %}
+<form action="{% url 'skill_update_url' skill.pk %}" method="post">{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Update" />
 </form>
