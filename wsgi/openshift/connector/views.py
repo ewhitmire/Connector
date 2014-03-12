@@ -134,12 +134,13 @@ class SkillCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         member = request.user.member
         if request.method == 'POST':
-            form = SkillForm(request.POST)
-
+            s = Skill()
+            s.category = Category.objects.all()[0]
+            s.member = member
+            form = SkillForm(request.POST, instance=s)
             if form.is_valid():
-                self.object = form.save(commit=False)
-                self.object.member = member
-                self.object.save()
+                
+                self.object = form.save()
 
                 return HttpResponseRedirect(reverse('skill_list_url'))
             else:

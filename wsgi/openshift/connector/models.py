@@ -40,8 +40,11 @@ class Category(models.Model):
 
 class Skill(models.Model):
 	member = models.ForeignKey(Member, default=None)
-	category = models.ForeignKey(Category)
+	category = models.ForeignKey(Category, default=None)
 	description = models.TextField()
+
+	class Meta:
+		unique_together = (("member", "category"),)
 
 	def __str__(self):
 		return self.category.__str__()

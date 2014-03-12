@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import ModelForm, Form, CharField
 from django.forms.models import inlineformset_factory
+from django.core.exceptions import ValidationError
 from connector.models import *
 
 class OfferForm(ModelForm):
@@ -16,6 +17,15 @@ class SkillForm(ModelForm):
     class Meta:
         model = Skill
         fields = ['category', 'description']
+
+    def validate_unique(self):
+        exclude = self._get_validation_exclusions()
+        exclude.remove('member') # allow checking against the missing attribute
+
+        try:
+            self.instance.validate_unique(exclude=exclude)
+        except ValidationError as e:
+            self._update_errors(e)
 
 class UserForm(ModelForm):
     class Meta:
