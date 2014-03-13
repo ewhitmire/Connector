@@ -88,6 +88,25 @@ class OfferListView(ListView):
             context["member"] = member
         return context
 
+class OfferRelatedListView(ListView):
+    model = Offer
+    template_name = 'offers/offer_list.html'
+    context_object_name = 'offers'
+
+    def get_queryset(self):
+        my_skills = Skill.objects.filter(member=self.request.user.member)
+        categories = my_skills.values_list('category', flat=True)
+        return Offer.objects.filter(category__in=categories).exclude(member=self.request.user.member)
+
+class OfferRelatedView(ListView):
+    model = Offer
+    template_name = 'offers/offer_list.html'
+    context_object_name = 'offers'
+
+    def get_queryset(self):
+        skill = get_object_or_404(Skill, pk=self.kwargs.get('pk', None))
+        return Offer.objects.filter(category=skill.category).exclude(member=self.request.user.member)
+
 class OfferCreateView(CreateView):
     model = Offer
     object = model
@@ -173,6 +192,24 @@ class SkillListView(ListView):
             context["member"] = member
         return context
 
+class SkillRelatedListView(ListView):
+    model = Skill
+    template_name = 'skills/skill_list.html'
+    context_object_name = 'skills'
+
+    def get_queryset(self):
+        my_offers = Offer.objects.filter(member=self.request.user.member)
+        categories = my_offers.values_list('category', flat=True)
+        return Skill.objects.filter(category__in=categories).exclude(member=self.request.user.member)
+
+class SkillRelatedView(ListView):
+    model = Skill
+    template_name = 'skills/skill_list.html'
+    context_object_name = 'skills'
+
+    def get_queryset(self):
+        offer = get_object_or_404(Offer, pk=self.kwargs.get('pk', None))
+        return Skill.objects.filter(category=offer.category).exclude(member=self.request.user.member)
 
 class SkillCreateView(CreateView):
     model = Skill

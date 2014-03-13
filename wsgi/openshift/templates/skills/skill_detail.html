@@ -6,4 +6,6 @@
 <h1>{{ skill.member.user.username }}</h1>
 <h2>{{ skill.category }}</h2>
 {{ skill.description }}
+
+<a href="{% url 'offer_related_url' skill.pk  %}">Matches</a>
 {% endblock %}

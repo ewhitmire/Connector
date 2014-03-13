@@ -8,4 +8,7 @@
 <h2>{{offer.member.user.get_full_name}}</h2>
 <h2>{{offer.organization}}</h2>
 {{offer.format_bid_string}}
+
+
+<a href="{% url 'skill_related_url' offer.pk  %}">Matches</a>
 {% endblock %}
