@@ -38,13 +38,7 @@
             <div class="row-fluid">
                 <div class="col-xs-6"><h4>{{ offer.category }}</h4></div>
                 <div class="col-xs-6" style="text-align:right"><h4>
-                    {% if offer.is_free %}
-                    Free
-                    {% elif offer.is_set_bid %}
-                    ${{ offer.bid_low|floatformat:2|intcomma }}
-                    {% else %}
-                    ${{offer.bid_low|floatformat:2|intcomma }} - ${{offer.bid_high|floatformat:2|intcomma }}
-                    {% endif %}
+                    {{offer.format_bid_string}}
                 </h4></div>
             </div>
             <div class="row-fluid">

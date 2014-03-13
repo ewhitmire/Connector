@@ -3,5 +3,7 @@
 {% block content %}
 
 {% if user|can_edit_skill:skill %}<a href="{% url 'skill_update_url' skill.pk %}">Edit</a>{% endif %}
-
+<h1>{{ skill.member.user.username }}</h1>
+<h2>{{ skill.category }}</h2>
+{{ skill.description }}
 {% endblock %}

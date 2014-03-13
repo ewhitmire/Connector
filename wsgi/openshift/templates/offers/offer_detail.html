@@ -3,5 +3,9 @@
 {% block content %}
 
 {% if user|can_edit_offer:offer %}<a href="{% url 'offer_update_url' offer.pk %}">Edit</a>{% endif %}
-
+<h1>{{offer.title}}</h1>
+<h2>{{offer.category}}</h2>
+<h2>{{offer.member.user.get_full_name}}</h2>
+<h2>{{offer.organization}}</h2>
+{{offer.format_bid_string}}
 {% endblock %}
