@@ -1,9 +1,10 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.views.generic import *
 from connector.models import *
 from connector.forms import *
+from connector.permissions import *
 
 class ProfileView(DetailView):
     model = Member
@@ -120,10 +121,27 @@ class OfferUpdateView(UpdateView):
     form_class = OfferForm
     template_name = 'offers/offer_update.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        offer = get_object_or_404(Offer, pk=kwargs.get('pk', None))
+
+        if can_user_edit_offer(request.user, offer):
+            return super(OfferUpdateView, self).dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden('You do not have permission to edit this offer.')
+
 class OfferDeleteView(DeleteView):
     model = Offer
     success_url = reverse_lazy('offer_list_url')
     template_name = 'offers/offer_confirm_delete.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        offer = get_object_or_404(Offer, pk=kwargs.get('pk', None))
+
+        if can_user_edit_offer(request.user, offer):
+            return super(OfferDeleteView, self).dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden('You do not have permission to delete this offer.')
+
 
 class SkillListView(ListView):
     model = Skill
@@ -192,7 +210,25 @@ class SkillUpdateView(UpdateView):
     form_class = SkillForm
     template_name = 'skills/skill_update.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        skill = get_object_or_404(Skill, pk=kwargs.get('pk', None))
+
+        if can_user_edit_offer(request.user, offer):
+            return super(SkillUpdateView, self).dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden('You do not have permission to update this skill.')
+
+
+
 class SkillDeleteView(DeleteView):
     model = Skill
     success_url = reverse_lazy('skill_list_url')
     template_name = 'skills/skill_confirm_delete.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        skill = get_object_or_404(Skill, pk=kwargs.get('pk', None))
+
+        if can_user_edit_offer(request.user, offer):
+            return super(SkillDeleteView, self).dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden('You do not have permission to delete this skill.')
