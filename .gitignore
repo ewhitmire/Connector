@@ -4,6 +4,7 @@
 *.orig
 *~
 *.log
+*.log.*
 *.egg-info
 *.py.disabled
 .project
