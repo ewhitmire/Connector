@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}js/libs/bootstrap.min.js"></script>
 
     <link type="text/css" rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less" />
 
@@ -18,24 +19,55 @@
     {% block extrajs %}{% endblock extrajs %}
 </head>
 
-<body>
+<body style="padding-top: 65px;">
     
     <div id="body" class="container">
         <div class="row">
             
         </div>
 
-        <div id="mainNavTop" class="row">
-            <div class="span12">
+        <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Connector</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li><a href="#">Logout</a>
+                    </li>
+                    {% else %}
+                    <li><a href="{{ STATIC_URL }}login">Login</a>
+                    </li>
+                    <li><a href="{{ STATIC_URL }}signup">Sign up</a>
+                    </li>
+                    {% endif %}
+                    <!--- make a dropdown button with options view my offers and/or my skills -->
+                    <li><a href="{% url 'my_profile_url' %}">My Profile</a>
+                    </li>
+
+                    <!--- make a dropdown button with options to do with create a view offers -->
+                    <li><a href="{% url 'offer_list_url' %}">Offers</a>
+                    </li>
+                    <!--- make a dropdown button with options to do with create a view offers -->
+                    <li><a href="{% url 'skill_list_url' %}">Skills</a>
+                    </li>
+                </ul>
                 {% if user.is_authenticated %}
                     Welcome <a href="{{ user.get_absolute_url }}">{{ user.get_full_name|default:"No Name" }}</a>!
                 {% endif %}
             </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container -->
+    </nav>
 
         {% block content %}{% endblock content %}
 
         <div id="footer" class="row">
+            <hr>
             <div class="span12">
                 &copy; {% now "Y" %} Connector 
             </div>
