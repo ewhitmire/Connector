@@ -19,7 +19,7 @@
     {% block extrajs %}{% endblock extrajs %}
 </head>
 
-<body style="padding-top: 65px;">
+<body style="padding-top: 50px;">
     
     <div id="body" class="container">
         <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
@@ -60,8 +60,8 @@
                       <ul class="dropdown-menu">
                         <li><a href="{% url 'my_profile_url' %}">My Profile</a></li>
                         <li class="divider"></li>
-                        <li><a href="{% url 'offer_member_url'%}">My Offers</a></li>
-                        <li><a href="{% url 'skill_member_url'%}">My Skills</a></li>
+                        <li><a href="{% url 'offer_member_url' request.user.member.pk %}">My Offers</a></li>
+                        <li><a href="{% url 'skill_member_url' request.user.member.pk %}">My Skills</a></li>
                       </ul>
                     </li>
                     <li><a href="{% url 'account_logout' %}">Logout</a></li>
