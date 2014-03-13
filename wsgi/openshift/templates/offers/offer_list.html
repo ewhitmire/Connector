@@ -11,6 +11,8 @@
         <h1>
             {% if category %}
             Opportunities for {{category}}
+            {% elif member %}
+            Opportunities by {{member.user.get_full_name}}
             {% else %}
             Opportunities
             {% endif %}

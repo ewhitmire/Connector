@@ -11,6 +11,8 @@
         <h1>
             {% if category %}
             Skills for {{category}}
+            {% elif member %}
+            Skills for {{member.user.get_full_name}}
             {% else %}
             Skills
             {% endif %}

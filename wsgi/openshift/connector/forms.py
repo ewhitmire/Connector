@@ -7,7 +7,7 @@ from connector.models import *
 class OfferForm(ModelForm):
     class Meta:
         model = Offer
-        fields = ['title', 'description', 'organization', 'contact_email', 'bid_low', 'bid_high']
+        fields = ['title', 'description', 'organization', 'contact_email', 'bid_low', 'bid_high', 'category']
 
         labels = {
             'bid_low': 'Minimum Bid',
