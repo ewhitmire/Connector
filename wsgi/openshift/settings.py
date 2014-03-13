@@ -15,6 +15,16 @@ import imp
 ON_OPENSHIFT = False
 if 'OPENSHIFT_REPO_DIR' in os.environ:
     ON_OPENSHIFT = True
+if 'OPENSHIFT_APP_NAME' in os.environ:
+    DB_NAME = os.environ['OPENSHIFT_APP_NAME']
+if 'OPENSHIFT_POSTGRESQL_DB_USERNAME' in os.environ:
+    DB_USER = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
+if 'OPENSHIFT_POSTGRESQL_DB_PASSWORD' in os.environ:
+    DB_PASSWD = os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
+if 'OPENSHIFT_POSTGRESQL_DB_HOST' in os.environ:
+    DB_HOST = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
+if 'OPENSHIFT_POSTGRESQL_DB_PORT' in os.environ:
+    DB_PORT = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -137,8 +147,12 @@ ABSOLUTE_URL_OVERRIDES = {
 if ON_OPENSHIFT:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'db.sqlite3'),
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': DB_NAME,               # Or path to database file if using sqlite3.
+            'USER': DB_USER,               # Not used with sqlite3.
+            'PASSWORD': DB_PASSWD,         # Not used with sqlite3.
+            'HOST': DB_HOST,               # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': DB_PORT,               # Set to empty string for default. Not used with sqlite3.
         }
     }
 else:
