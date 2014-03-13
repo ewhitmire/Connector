@@ -30,24 +30,28 @@
         <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Connector</a>
+                <a class="navbar-brand" href="{% url 'home_url' %}">Connector</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
+                   
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'account_logout' %}">Logout</a>
                     </li>
+                    <li class="dropdown"><a href="{% url 'my_profile_url' %}">My Profile</a>
+                    </li>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                      <li><a tabindex="-1" href="#">My Offers</a></li>
+                      <li><a tabindex="-1" href="#">My Skills</a></li>
+                    </ul>
                     {% else %}
                     <li><a href="{% url 'account_login' %}">Login</a>
                     </li>
                     <li><a href="{% url 'account_signup' %}">Sign up</a>
                     </li>
                     {% endif %}
-                    <!--- make a dropdown button with options view my offers and/or my skills -->
-                    <li><a href="{% url 'my_profile_url' %}">My Profile</a>
-                    </li>
 
                     <!--- make a dropdown button with options to do with create a view offers -->
                     <li><a href="{% url 'offer_list_url' %}">Offers</a>
