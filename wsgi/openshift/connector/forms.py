@@ -35,7 +35,7 @@ class UserForm(ModelForm):
 class MemberForm(ModelForm):
     class Meta:
         model = Member
-        fields = ['domain', 'avatar']
+        fields = ['domain']
 
 class SignupForm(Form):
     #first_name = CharField(max_length=30, label='First Name')

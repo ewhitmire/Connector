@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'south',
     'connector',
     'autoslug',
+    'avatar',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',

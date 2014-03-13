@@ -2,15 +2,8 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
-from connector.storage import OverwriteStorage
 
 import os
-
-MEMBER_IMAGE_FOLDER = 'member'
-def make_member_image_name(instance, filename):
-    if instance.pk is None:
-        raise Exception('save Member instance before saving ImageField')
-    return os.path.join(MEMBER_IMAGE_FOLDER, str(instance.pk) + os.path.splitext(filename)[1].lower())
 
 class Domain(models.Model):
 	slug = models.SlugField()
@@ -23,7 +16,6 @@ class Member(models.Model):
 	domain = models.ForeignKey(Domain, default=None)
 	user = models.OneToOneField(User)
 	is_setup = models.BooleanField(editable=False, default=False)
-	avatar = models.ImageField(upload_to=make_member_image_name, storage=OverwriteStorage(), blank=True, null=True)
 
 	def __str__(self):
 		return self.user.__str__()
