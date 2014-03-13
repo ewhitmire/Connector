@@ -30,18 +30,18 @@
         <h3>General Information {% if user|can_edit_profile:member %}<a href="{% url 'member_update_url' %}" class="btn btn-primary">Edit Profile</a></h3>{% endif %}
         Network: {{member.domain}}<br />
         Email: {{member.user.email}}<br />
-        <h3>Skills <a href="{% url 'skill_create_url' %}" class="btn btn-primary">Add a New Skill</a></h3>
+        <h3>Skills {% if user|can_edit_profile:member %}<a href="{% url 'skill_create_url' %}" class="btn btn-primary">Add a New Skill</a>{% endif %}</h3>
         
             {% for skill in member.skill_set.all %}
-                <p>{{skill.category}}</p>
+                <p><a href="{{ skill.get_absolute_url }}">{{skill.category}}</a></p>
                 {% empty %}
-                <p>You do not have a skill! Would you like to <a href="{% url 'skill_create_url' %}">Add a New Skill</a>?</p>
+                {% if user|can_edit_profile:member %}<p>You do not have a skill! Would you like to <a href="{% url 'skill_create_url' %}">Add a New Skill</a>?</p>{% endif %}
             {% endfor %}
-        <h3>Offers <a href="{% url 'offer_create_url' %}" class="btn btn-primary">Add a New Offer</a></h3>
+        <h3>Offers {% if user|can_edit_profile:member %}<a href="{% url 'offer_create_url' %}" class="btn btn-primary">Add a New Offer</a>{% endif %}</h3>
             {% for offer in member.offer_set.all %}
-                <p>{{offer.category}}</p>
+                <p><a href="{{ offer.get_absolute_url }}">{{offer.category}}</a></p>
                 {% empty %}
-                <p>You do not have an offer! Would you like to <a href="{% url 'skill_create_url' %}">Create a New Offer</a>?</p>
+                {% if user|can_edit_profile:member %}<p>You do not have an offer! Would you like to <a href="{% url 'skill_create_url' %}">Create a New Offer</a>?</p>{% endif %}
             {% endfor %}  
 		
     </div>

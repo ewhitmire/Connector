@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load filters %}
+{% block content %}
+
+{% if user|can_edit_offer:offer %}<a href="{% url 'offer_update_url' offer.pk %}">Edit</a>{% endif %}
+
+{% endblock %}

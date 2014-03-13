@@ -37,12 +37,12 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
-                    <li><a href="#">Logout</a>
+                    <li><a href="{% url 'account_logout' %}">Logout</a>
                     </li>
                     {% else %}
-                    <li><a href="{{ STATIC_URL }}login">Login</a>
+                    <li><a href="{% url 'account_login' %}">Login</a>
                     </li>
-                    <li><a href="{{ STATIC_URL }}signup">Sign up</a>
+                    <li><a href="{% url 'account_signup' %}">Sign up</a>
                     </li>
                     {% endif %}
                     <!--- make a dropdown button with options view my offers and/or my skills -->

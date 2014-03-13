@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load filters %}
+{% block content %}
+
+{% if user|can_edit_skill:skill %}<a href="{% url 'skill_update_url' skill.pk %}">Edit</a>{% endif %}
+
+{% endblock %}
