@@ -13,13 +13,27 @@ class Domain(models.Model):
         return self.name
 
 class Member(models.Model):
+    MODE_FREELANCER = 0
+    MODE_POSTER = 1
+
+    MODE_CHOICES = (
+        (MODE_FREELANCER, "Freelancer"),
+        (MODE_POSTER, "Poster")
+    )
     domain = models.ForeignKey(Domain, default=None)
     user = models.OneToOneField(User)
     is_setup = models.BooleanField(editable=False, default=False)
+    mode = models.IntegerField(editable=True, choices=MODE_CHOICES, default=MODE_FREELANCER)
 
     def __str__(self):
         return self.user.__str__()
 
+    def is_poster(self):
+        return self.mode == MODE_POSTER
+
+    def is_freelancer(self):
+        return self.mode == MODE_FREELANCER
+     
     def get_absolute_url(self):
         return reverse('profile_url', args=[self.id])
 

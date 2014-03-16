@@ -1,10 +1,21 @@
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.views.generic import *
 from connector.models import *
 from connector.forms import *
 from connector.permissions import *
+
+class CreateMemberFreelancerView(View):
+    def get(self, request):
+        request.session['signup_mode'] = Member.MODE_FREELANCER
+        return redirect('account_signup')
+
+class CreateMemberPosterView(View):
+    def get(self, request):
+        request.session['signup_mode'] = Member.MODE_POSTER
+        return redirect('account_signup')
+
 
 class ProfileView(DetailView):
     model = Member
@@ -35,6 +46,7 @@ class MemberUpdateView(DetailView):
             self.user_form.save()
             member = self.member_form.save()
             member.is_setup = True
+            member.mode = request.session.pop('signup_mode')
             member.save()
             return HttpResponseRedirect(reverse("my_profile_url"))
         else:
