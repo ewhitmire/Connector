@@ -1,3 +1,7 @@
+import autocomplete_light
+# import every app/autocomplete_light_registry.py
+autocomplete_light.autodiscover()
+
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -41,6 +45,7 @@ urlpatterns = patterns('',
     url(r'^offers/(?P<pk>\d+)/delete$', OfferDeleteView.as_view(), name='offer_delete_url'),
     url(r'^offers/new$', login_required(OfferCreateView.as_view()), name='offer_create_url'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
 
 )
 

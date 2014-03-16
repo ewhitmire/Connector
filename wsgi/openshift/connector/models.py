@@ -2,12 +2,17 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
-
 import os
 
 class Domain(models.Model):
     slug = models.SlugField()
     name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+class Tag(models.Model):
+    name = models.CharField(max_length=30)
 
     def __str__(self):
         return self.name
@@ -48,6 +53,7 @@ class Skill(models.Model):
     member = models.ForeignKey(Member, default=None)
     category = models.ForeignKey(Category, default=None)
     description = models.TextField()
+    tags = models.ManyToManyField(Tag)
 
     class Meta:
         unique_together = (("member", "category"),)
@@ -84,6 +90,8 @@ class Offer(models.Model):
     contact_email = models.EmailField()
     bid_low = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     bid_high = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    tags = models.ManyToManyField(Tag)
+
 
     def is_free(self):
         return self.bid_high == self.bid_low and self.bid_low == 0

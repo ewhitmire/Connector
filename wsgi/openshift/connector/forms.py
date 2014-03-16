@@ -3,20 +3,22 @@ from django.forms import ModelForm, Form, CharField
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import ValidationError
 from connector.models import *
+import autocomplete_light
 
-class OfferForm(ModelForm):
+class OfferForm(autocomplete_light.ModelForm):
     class Meta:
         model = Offer
-        fields = ['title', 'description', 'organization', 'contact_email', 'bid_low', 'bid_high', 'category']
+        fields = ['title', 'description', 'organization', 'contact_email', 'bid_low', 'bid_high', 'category', 'tags']
 
         labels = {
             'bid_low': 'Minimum Bid',
             'bid_high': 'Maximum Bid',
         }
-class SkillForm(ModelForm):
+
+class SkillForm(autocomplete_light.ModelForm):
     class Meta:
         model = Skill
-        fields = ['category', 'description']
+        fields = ['category', 'description', 'tags']
 
     def validate_unique(self):
         exclude = self._get_validation_exclusions()

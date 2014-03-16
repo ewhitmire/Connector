@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'south',
     'connector',
     'bootstrap3',
+    'autocomplete_light',
     'autoslug',
     'avatar',
     'allauth',
