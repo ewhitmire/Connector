@@ -91,6 +91,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'south',
     'connector',
+    'bootstrap3',
     'autoslug',
     'avatar',
     'allauth',

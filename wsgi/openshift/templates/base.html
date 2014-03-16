@@ -6,9 +6,9 @@
 
     <script type="text/javascript" src="{% static 'js/libs/jquery.js' %}"></script>
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 
     <link type="text/css" rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less" />
 
@@ -77,6 +77,7 @@
         </nav>
 
        
+        {% bootstrap_messages %}
         {% block content %}{% endblock content %}
 
         <div id="footer" class="row">
