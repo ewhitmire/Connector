@@ -14,19 +14,19 @@
     <div class="item active">
       <img src="{% static 'images/imgwithphonewide.jpg'%}" alt="Connect with others">
       <div class="carousel-caption">
-        <h1>Connect with amature professionals!</h1>
+        <h2 class="carousel-caption">Connect with amature professionals!</h2>
       </div>
     </div>
     <div class="item">
       <img src="{% static 'images/emptybarstoolswide.jpg' %}" alt="Find Offers">
       <div class="carousel-caption">
-        <h1>Learn about what skills people are offering!</h1>
+        <h2 class="carousel-caption">Learn about what skills people are offering!</h2>
       </div>
     </div>
     <div class="item">
       <img src="{% static 'images/redchairswide.jpg'%}" alt="Find skills">
       <div class="carousel-caption">
-        <h1>Connect to build your portfolio!</h1>
+        <h2 class="carousel-caption">Connect to build your portfolio!</h2>
       </div>
     </div>
   </div>
@@ -48,8 +48,14 @@
                 <p>Connect with amature professionals to help further along your club or other busienss needs!  Local college and universities want to build their resume to help further along their career!</p>
                  
                  <p style="text-align: center">
-                  <a class="btn btn-primary btn-large" href="{% url 'account_signup' %}">
-                    Sign up!
+                  <a class="btn btn-primary btn-large" href="{% url 'create_member_freelancer_url' %}">
+                    Sign up as a freelancer!
+                  </a>
+                 </p>
+
+                 <p style="text-align: center">
+                  <a class="btn btn-primary btn-large" href="{% url 'create_member__poster_url' %}">
+                    Sign up as a Job poster!
                   </a>
                  </p>
             </div>
