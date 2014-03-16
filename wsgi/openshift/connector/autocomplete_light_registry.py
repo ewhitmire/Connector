@@ -1,5 +1,5 @@
 import autocomplete_light
-from models import Tag
+from connector.models import Tag
 
 # This will generate a PersonAutocomplete class
 autocomplete_light.register(Tag,
