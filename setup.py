@@ -14,8 +14,8 @@ packages = ['Django<=1.6',
                   'django-allauth',
                   'django-avatar',
                   'django-bootstrap3',
-                  'django-autocomplete-light>=2.0.0pre'
-                  'pyyaml'
+                  'django-autocomplete-light>=2.0.0pre',
+                  'pyyaml',
                    #  'mysql-connector-python',
                    #  'pymongo',
                    #  'psycopg2',
