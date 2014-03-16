@@ -262,12 +262,10 @@ class SkillUpdateView(UpdateView):
     def dispatch(self, request, *args, **kwargs):
         skill = get_object_or_404(Skill, pk=kwargs.get('pk', None))
 
-        if can_user_edit_offer(request.user, offer):
+        if can_user_edit_skill(request.user, skill):
             return super(SkillUpdateView, self).dispatch(request, *args, **kwargs)
         else:
             return HttpResponseForbidden('You do not have permission to update this skill.')
-
-
 
 class SkillDeleteView(DeleteView):
     model = Skill
@@ -277,7 +275,7 @@ class SkillDeleteView(DeleteView):
     def dispatch(self, request, *args, **kwargs):
         skill = get_object_or_404(Skill, pk=kwargs.get('pk', None))
 
-        if can_user_edit_offer(request.user, offer):
+        if can_user_edit_skill(request.user, skill):
             return super(SkillDeleteView, self).dispatch(request, *args, **kwargs)
         else:
             return HttpResponseForbidden('You do not have permission to delete this skill.')
