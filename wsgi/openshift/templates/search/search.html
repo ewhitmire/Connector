@@ -46,7 +46,7 @@
             {% if facets.fields.category %}
                 <dt>Category</dt>
                 {# Provide only the top 5 authors #}
-                {% for author in facets.fields.category|slice:":5" %}
+                {% for category in facets.fields.category|slice:":5" %}
                     <dd><a href="{{ request.get_full_path }}&amp;selected_facets=category_exact:{{ category.0|urlencode }}">{{ category.0 }}</a> ({{ category.1 }})</dd>
                 {% endfor %}
             {% else %}
@@ -56,16 +56,6 @@
     </div>
     <!-- End faceting -->
 
-    <!-- Display results... -->
-    {% for result in results %}
-        <div class="search_result">
-            <h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a></h3>
-
-            <p>{{ result.object.body|truncatewords:80 }}</p>
-        </div>
-    {% empty %}
-        <p>Sorry, no results found.</p>
-    {% endfor %}
 {% endif %}
 {% endblock %}
 

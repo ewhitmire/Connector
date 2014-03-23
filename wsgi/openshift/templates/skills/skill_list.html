@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
+{% load filters %}
 
 {% block content %}
 <div class="row">
@@ -10,13 +11,7 @@
 <div class="row">
     <div class="col-md-8">
         <h1>
-            {% if category %}
-            Skills for {{category}}
-            {% elif member %}
-            Skills for {{member.user.get_full_name}}
-            {% else %}
             Skills
-            {% endif %}
         </h1>
     </div>
     <div class="col-md-4" style="text-align:right">
@@ -36,40 +31,50 @@
         <div class="well sidebar-nav col-md-2" />
             <p><b>Search Options</b></p>
             <hr>
-            <ul class="nav nav-list">
-                    <li class="nav-header">Categories</li>
+
+                <div>
+                    <dl>
+                        {% if facets.fields.category %}
+                            <dt class="nav-header">Category</dt>
+                            {# Provide only the top 5 categories #}
+                            {% for category in facets.fields.category|slice:":5" %}
+                                <dd><a href="?q={{ query }}&amp;selected_facets=category_exact:{{ category.0|urlencode }}">{{ category.0 }}</a> ({{ category.1 }})</dd>
+                            {% endfor %}
+                        {% else %}
+                            <p>No category facets.</p>
+                        {% endif %}
+                    </dl>
+                </div>
                 
-                    <li class="active"><a href=""></a></li>
-                
-            </ul>
         </div>
          
         <!-- main content -->
         <div class="row-fluid col-md-10">
-            {% for skill in skills %}
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">{{ skill.member.user.get_full_name }}</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row-fluid">
-                        <div class="col-xs-6"><h4>{{ skill.category }}</h4></div>
+
+            {% if query or page.object_list%}
+                {% if query %}
+                    <h3>Results</h3>
+                {% endif %}
+
+                {% for skill in page.object_list %}
+                    {% skill_badge skill.object %}
+                {% empty %}
+                    <p>No results found.</p>
+                {% endfor %}
+
+                {% if page.has_previous or page.has_next %}
+                    <div>
+                        {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                        |
+                        {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
                     </div>
-                    <div class="row-fluid">
-                        <div class="col-xs-12" style="height:80px;overflow:hidden">
-                            {{ skill.description }}
-                        </div>
-                    </div>
-                    <div class="row-fluid">
-                        <div class="col-xs-12" style="text-align:right">
-                            <a href="{{ skill.get_absolute_url }}" class="btn btn-default">Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}         
+                {% endif %}
+            {% else %}
+                
+            {% endif %}
+
+            
+        </div>      
     </div>
 </div>
 

@@ -69,36 +69,6 @@ class MyProfileView(ProfileView):
             return HttpResponseRedirect(reverse("member_update_url"))
         return super(MyProfileView, self).get(request, *args, **kwargs)
 
-class OfferListView(ListView):
-    model = Offer
-    template_name = 'offers/offer_list.html'
-    context_object_name = 'offers'
-    paginate_by = 10
-
-    def get_queryset(self):
-        cat_pk = self.kwargs.get('cat_pk', None)
-        mem_pk = self.kwargs.get('mem_pk', None)
-        if cat_pk is None and mem_pk is None:
-            return Offer.objects.all()
-        elif cat_pk is None:
-            member = get_object_or_404(Member, pk=mem_pk)
-            return Offer.objects.filter(member=member)
-        else:
-            category = get_object_or_404(Category, pk=cat_pk)
-            return Offer.objects.filter(category=category)
-
-    def get_context_data(self, **kwargs):
-        context = super(OfferListView, self).get_context_data(**kwargs)
-        cat_pk = self.kwargs.get('cat_pk', None)
-        if not cat_pk is None:
-            category = get_object_or_404(Category, pk=cat_pk)
-            context["category"] = category
-
-        mem_pk = self.kwargs.get('mem_pk', None)
-        if not mem_pk is None:
-            member = get_object_or_404(Member, pk=mem_pk)
-            context["member"] = member
-        return context
 
 class OfferRelatedListView(ListView):
     model = Offer
@@ -172,37 +142,6 @@ class OfferDeleteView(DeleteView):
             return super(OfferDeleteView, self).dispatch(request, *args, **kwargs)
         else:
             return HttpResponseForbidden('You do not have permission to delete this offer.')
-
-
-class SkillListView(ListView):
-    model = Skill
-    template_name = 'skills/skill_list.html'
-    context_object_name = 'skills'
-
-    def get_queryset(self):
-        cat_pk = self.kwargs.get('cat_pk', None)
-        mem_pk = self.kwargs.get('mem_pk', None)
-        if cat_pk is None and mem_pk is None:
-            return Skill.objects.all()
-        elif cat_pk is None:
-            member = get_object_or_404(Member, pk=mem_pk)
-            return Skill.objects.filter(member=member)
-        else:
-            category = get_object_or_404(Category, pk=cat_pk)
-            return Skill.objects.filter(category=category)
-
-    def get_context_data(self, **kwargs):
-        context = super(SkillListView, self).get_context_data(**kwargs)
-        cat_pk = self.kwargs.get('cat_pk', None)
-        if not cat_pk is None:
-            category = get_object_or_404(Category, pk=cat_pk)
-            context["category"] = category
-
-        mem_pk = self.kwargs.get('mem_pk', None)
-        if not mem_pk is None:
-            member = get_object_or_404(Member, pk=mem_pk)
-            context["member"] = member
-        return context
 
 class SkillRelatedListView(ListView):
     model = Skill

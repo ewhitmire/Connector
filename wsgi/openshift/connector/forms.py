@@ -4,6 +4,7 @@ from django.forms.models import inlineformset_factory
 from django.core.exceptions import ValidationError
 from connector.models import *
 import autocomplete_light
+from haystack.forms import FacetedSearchForm
 
 class OfferForm(autocomplete_light.ModelForm):
     class Meta:
@@ -53,3 +54,15 @@ class SignupForm(Form):
         member.user = user
         member.domain = Domain.objects.all()[0]
         member.save()
+
+class DrillDownSearchForm(FacetedSearchForm):
+    def no_query_found(self):
+        """
+        Determines the behavior when no query was found.
+
+        By default, no results are returned (``EmptySearchQuerySet``).
+
+        Should you want to show all results, override this method in your
+        own ``SearchForm`` subclass and do ``return self.searchqueryset.all()``.
+        """
+        return self.searchqueryset.all()

@@ -11,8 +11,9 @@ from django.contrib import admin
 from django.conf import settings
 
 from haystack.forms import FacetedSearchForm
+from connector.forms import DrillDownSearchForm
 from haystack.query import SearchQuerySet
-from haystack.views import FacetedSearchView
+from haystack.views import FacetedSearchView, search_view_factory
 
 from connector.views import *
 
@@ -33,21 +34,31 @@ urlpatterns += patterns('',
     url(r'^people/(?P<pk>\d+)/$', login_required(ProfileView.as_view()), name='profile_url'),
     url(r'^people/me/$', login_required(MyProfileView.as_view()), name='my_profile_url'),
     url(r'^people/edit/$', login_required(MemberUpdateView.as_view()), name='member_update_url'),
-    url(r'^skills/all$', SkillListView.as_view(), name='skill_list_url'),
+    url(r'^skills/all$', search_view_factory(
+        view_class=FacetedSearchView,
+        template='skills/skill_list.html',
+        searchqueryset=SearchQuerySet().models(Skill).facet('category'),
+        form_class=DrillDownSearchForm
+    ), name='skill_list_url'),
     url(r'^skills/related$', SkillRelatedListView.as_view(), name='skill_related_list_url'),
     url(r'^skills/(?P<pk>\d+)/related$', OfferRelatedView.as_view(), name='offer_related_url'),
-    url(r'^skills/category/(?P<cat_pk>\d+)$', SkillListView.as_view(), name='skill_category_url'),
-    url(r'^skills/member/(?P<mem_pk>\d+)$', SkillListView.as_view(), name='skill_member_url'),
+    #url(r'^skills/category/(?P<cat_pk>\d+)$', SkillListView.as_view(), name='skill_category_url'),
+    #url(r'^skills/member/(?P<mem_pk>\d+)$', SkillListView.as_view(), name='skill_member_url'),
     url(r'^skills/(?P<pk>\d+)$', SkillDetailView.as_view(), name='skill_detail_url'),
     url(r'^skills/(?P<pk>\d+)/update$', SkillUpdateView.as_view(), name='skill_update_url'),
     url(r'^skills/(?P<pk>\d+)/delete$', SkillDeleteView.as_view(), name='skill_delete_url'),
     url(r'^skills/new$', login_required(SkillCreateView.as_view()), name='skill_create_url'),
-    url(r'^offers/all$', OfferListView.as_view(), name='offer_list_url'),
+    url(r'^offers/all$', search_view_factory(
+        view_class=FacetedSearchView,
+        template='offers/offer_list.html',
+        searchqueryset=SearchQuerySet().models(Offer).facet('category'),
+        form_class=DrillDownSearchForm
+    ), name='offer_list_url'),
     url(r'^offers/related$', OfferRelatedListView.as_view(), name='offer_related_list_url'),
     url(r'^offers/(?P<pk>\d+)$', OfferDetailView.as_view(), name='offer_detail_url'),
     url(r'^offers/(?P<pk>\d+)/related$', SkillRelatedView.as_view(), name='skill_related_url'),
-    url(r'^offers/category/(?P<cat_pk>\d+)$', OfferListView.as_view(), name='offer_category_url'),
-    url(r'^offers/member/(?P<mem_pk>\d+)$', OfferListView.as_view(), name='offer_member_url'),
+    #url(r'^offers/category/(?P<cat_pk>\d+)$', OfferListView.as_view(), name='offer_category_url'),
+    #url(r'^offers/member/(?P<mem_pk>\d+)$', OfferListView.as_view(), name='offer_member_url'),
     url(r'^offers/(?P<pk>\d+)/update$', OfferUpdateView.as_view(), name='offer_update_url'),
     url(r'^offers/(?P<pk>\d+)/delete$', OfferDeleteView.as_view(), name='offer_delete_url'),
     url(r'^offers/new$', login_required(OfferCreateView.as_view()), name='offer_create_url'),
