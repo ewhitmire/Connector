@@ -15,3 +15,4 @@ dist/
 build/
 *.sqlite3
 media/
+*whoosh_index/*
