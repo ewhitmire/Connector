@@ -1,0 +1,4 @@
+{{ object.description }}
+{{ object.tags }}
+{{ object.member.user.get_full_name }}
+{{ object.category.name }}
