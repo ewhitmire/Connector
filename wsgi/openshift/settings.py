@@ -94,6 +94,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'autocomplete_light',
     'autoslug',
+    'haystack',
     'avatar',
     'allauth',
     'allauth.account',
@@ -234,4 +235,11 @@ LOGGING = {
             'level': 'DEBUG',
         },
     }
+}
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
 }

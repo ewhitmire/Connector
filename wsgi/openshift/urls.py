@@ -46,7 +46,7 @@ urlpatterns = patterns('',
     url(r'^offers/new$', login_required(OfferCreateView.as_view()), name='offer_create_url'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
-
+    url(r'^search/', include('haystack.urls')),
 )
 
 urlpatterns+=patterns('django.contrib.auth.views',
