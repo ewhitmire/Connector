@@ -10,11 +10,18 @@ from django.contrib import admin
 
 from django.conf import settings
 
+from haystack.forms import FacetedSearchForm
+from haystack.query import SearchQuerySet
+from haystack.views import FacetedSearchView
+
 from connector.views import *
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('haystack.views',
+)
+
+urlpatterns += patterns('',
     # Examples:
     url(r'^$', 'views.home', name='home_url'),
     # url(r'^$', 'openshift.views.home', name='home'),
@@ -46,7 +53,10 @@ urlpatterns = patterns('',
     url(r'^offers/new$', login_required(OfferCreateView.as_view()), name='offer_create_url'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
-    url(r'^search/', include('haystack.urls')),
+
+    url(r'^search/$', FacetedSearchView(form_class=FacetedSearchForm, searchqueryset=SearchQuerySet().facet('category')), name='haystack_search'),
+    #url(r'^search/', include('haystack.urls')),
+
 )
 
 urlpatterns+=patterns('django.contrib.auth.views',
