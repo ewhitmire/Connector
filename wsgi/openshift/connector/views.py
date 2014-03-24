@@ -5,6 +5,8 @@ from django.views.generic import *
 from connector.models import *
 from connector.forms import *
 from connector.permissions import *
+from haystack.views import *
+from haystack.query import SearchQuerySet
 
 class CreateMemberFreelancerView(View):
     def get(self, request):
@@ -218,3 +220,138 @@ class SkillDeleteView(DeleteView):
             return super(SkillDeleteView, self).dispatch(request, *args, **kwargs)
         else:
             return HttpResponseForbidden('You do not have permission to delete this skill.')
+from functools import update_wrapper
+ 
+from django.conf import settings
+from django.utils.decorators import classonlymethod
+from django.views.generic.base import TemplateResponseMixin
+ 
+from haystack.query import SearchQuerySet
+from haystack.forms import FacetedSearchForm
+from haystack.views import FacetedSearchView as HaystackFacetedSearchView
+ 
+ 
+
+class FacetedSearchView(TemplateResponseMixin, HaystackFacetedSearchView):
+    template_name = None
+    facets = None
+    filter_models = None
+    order_by = None
+    paginate_by = getattr(settings, 'HAYSTACK_SEARCH_RESULTS_PER_PAGE', 20)
+    form_class = FacetedSearchForm
+ 
+    def __init__(self, *args, **kwargs):
+        form_class = kwargs.get('form_class', self.form_class)
+        super(FacetedSearchView, self).__init__(*args, **kwargs)
+        # Needed to switch out the default form class.
+        self.form_class = form_class
+        if not self.results_per_page and self.paginate_by:
+            self.results_per_page = self.paginate_by
+ 
+    def get_context_data(self):
+        return {}
+ 
+    def extra_context(self):
+        ctx = super(FacetedSearchView, self).extra_context()
+        ctx.update(self.get_context_data())
+        return ctx
+ 
+    def get_facets(self):
+        if not self.facets:
+            return []
+        return self.facets
+ 
+    def get_filter_model(self, models=None):
+        if models:
+            return (models + self.filter_models)
+        return self.filter_models
+ 
+    def get_order_by_fields(self):
+        return self.order_by
+ 
+    def get_extra_filters(self):
+        return {}
+ 
+    def get_search_queryset(self, queryset=None, models=None):
+        searchqueryset = queryset or self.searchqueryset or SearchQuerySet()
+        searchqueryset = searchqueryset.filter(
+            **self.get_extra_filters()
+        )
+        for facet_field in self.get_facets():
+            searchqueryset = searchqueryset.facet(facet_field)
+        # check we should filter by model
+        filter_models = self.get_filter_model(models)
+        if filter_models:
+            searchqueryset = searchqueryset.models(*filter_models)
+        # check for defined order by list
+        if self.get_order_by_fields():
+            searchqueryset = searchqueryset.order_by(
+                *self.get_order_by_fields()
+            )
+        return searchqueryset
+ 
+    @property
+    def template(self):
+        """ Provide property to be backwards compatible with haystack. """
+        template_names = self.get_template_names()
+        if template_names:
+            return template_names[0]
+        return None
+ 
+    def get(self, request, *args, **kwargs):
+        self.searchqueryset = self.get_search_queryset()
+        return super(FacetedSearchView, self).__call__(request)
+ 
+    def __call__(self, request, *args, **kwargs):
+        self.request = request
+        self.kwargs = kwargs
+        return self.get(request, *args, **kwargs)
+ 
+    @classonlymethod
+    def as_view(cls, *initargs, **initkwargs):
+        def view(request, *args, **kwargs):
+            return cls(*initargs, **initkwargs)(request, *args, **kwargs)
+        update_wrapper(view, cls, updated=())
+        return view
+
+class SkillListView(FacetedSearchView):
+
+    template='skills/skill_list.html'
+    form_class=DrillDownSearchForm
+
+    def build_form(self, form_kwargs=None):
+        self.searchqueryset = SearchQuerySet().models(Skill).facet('category')
+        return super(SkillListView, self).build_form(form_kwargs)
+
+class SkillMemberView(FacetedSearchView):
+
+    template='skills/skill_list.html'
+    form_class = DrillDownSearchForm
+
+    def build_form(self, form_kwargs=None):
+        self.searchqueryset = SearchQuerySet().models(Offer).filter(member=Member.objects.get(pk=self.kwargs.get("mem_pk", None)))
+        return super(SkillMemberView, self).build_form(form_kwargs)
+
+class OfferListView(FacetedSearchView):
+
+    template='offers/offer_list.html'
+    form_class=DrillDownSearchForm
+
+    def build_form(self, form_kwargs=None):
+        self.searchqueryset = SearchQuerySet().models(Offer).facet('category')
+        return super(OfferListView, self).build_form(form_kwargs)
+
+class OfferMemberView(FacetedSearchView):
+
+    template = 'offers/offer_list.html'
+    form_class = DrillDownSearchForm
+
+    def __call__(self, request, mem_pk):
+        self.mem_pk = mem_pk
+        return super(OfferMemberView, self).__call__(request)
+
+    def build_form(self, form_kwargs=None):
+        #prop = Member.objects.get(pk=self.mem_pk).property
+        self.searchqueryset = SearchQuerySet().models(Offer).filter(member=Member.objects.get(pk=self.mem_pk))
+
+        return super(OfferMemberView, self).build_form(form_kwargs)
