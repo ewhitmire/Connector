@@ -1,1 +1,1 @@
-nohup $OPENSHIFT_DATA_DIR/elasticsearch/bin/elasticsearch
+nohup $OPENSHIFT_DATA_DIR/elasticsearch/bin/elasticsearch &
