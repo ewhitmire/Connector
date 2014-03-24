@@ -329,7 +329,7 @@ class SkillMemberView(FacetedSearchView):
     form_class = DrillDownSearchForm
 
     def build_form(self, form_kwargs=None):
-        self.searchqueryset = SearchQuerySet().models(Offer).filter(member=Member.objects.get(pk=self.kwargs.get("mem_pk", None)))
+        self.searchqueryset = SearchQuerySet().models(Skill).filter(member=Member.objects.get(pk=self.kwargs.get("mem_pk", None)))
         return super(SkillMemberView, self).build_form(form_kwargs)
 
 class OfferListView(FacetedSearchView):
