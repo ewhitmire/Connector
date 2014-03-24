@@ -26,6 +26,11 @@ if 'OPENSHIFT_POSTGRESQL_DB_HOST' in os.environ:
 if 'OPENSHIFT_POSTGRESQL_DB_PORT' in os.environ:
     DB_PORT = os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
 
+if 'OPENSHIFT_PYTHON_IP' in os.environ:
+    OS_IP = os.environ['OPENSHIFT_PYTHON_IP']
+else:
+    OS_IP = '127.0.0.1'
+
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 # Quick-start development settings - unsuitable for production
@@ -240,7 +245,7 @@ LOGGING = {
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
+        'URL': 'http://'+OS_IP+':9200/',
         'INDEX_NAME': 'haystack',
     },
 }
