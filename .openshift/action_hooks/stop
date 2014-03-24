@@ -1,0 +1,1 @@
+kill ps -ef | grep elasticsearch | grep -v grep | awk &#039;{ print $2 }&#039; > /dev/null 2>&1
