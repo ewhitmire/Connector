@@ -37,7 +37,7 @@ footer {
   padding-top: 55px;
   top: 0;
 }
-.carousel-caption h2, .carousel-caption div {
+.carousel-caption h2 {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.25);
   clear: both;
   display: inline-block;

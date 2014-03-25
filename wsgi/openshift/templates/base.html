@@ -10,7 +10,8 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
-    <link type="text/css" rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less" />
+    <link type="text/css" rel="stylesheet/less" href="static/css/style.less" />
+    <link type="text/css" rel="stylesheet" href="static/js/libs/slider.css" />
 
     {% block extracss %}{% endblock extracss %}
 
@@ -70,8 +71,11 @@
                       <ul class="dropdown-menu">
                         <li> <a href="{% url 'my_profile_url' %}">My Profile</a></li>
                         <li class="divider"></li>
+                        {% if member.mode == "poster" %}
                         <li><a href="{% url 'offer_member_url' request.user.member.pk %}">My Offers</a></li>
+                        {% else %}
                         <li><a href="{% url 'skill_member_url' request.user.member.pk %}">My Skills</a></li>
+                        {% endif %}
                       </ul>
                     </li>
                     <li><a href="{% url 'account_logout' %}">Logout</a></li>
