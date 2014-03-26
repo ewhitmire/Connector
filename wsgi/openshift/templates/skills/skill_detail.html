@@ -2,10 +2,46 @@
 {% load filters %}
 {% block content %}
 
-{% if user|can_edit_skill:skill %}<a href="{% url 'skill_update_url' skill.pk %}">Edit</a>{% endif %}
-<h1>{{ skill.member.user.username }}</h1>
-<h2>{{ skill.category }}</h2>
-{{ skill.description }}
 
-<a href="{% url 'offer_related_url' skill.pk  %}">Matches</a>
+
+<div class="row">
+	<h1>{{offer.title}}</h1>
+</div>
+
+<div class="row">
+	{% if user|can_edit_skill:skill %}<a href="{% url 'skill_update_url' skill.pk %}">Edit</a>{% endif %}
+</div>
+
+<div class="row">
+	<div class="col-md-8">
+    	<h2>Skill Description</h2>
+		<p class="lead">{{skill.description}}</p>
+	</div>
+	<div class="col-md-4">
+		<h2>Skill Overview</h2>
+	  	<dl class="dl-horizontal">
+			<dt>Cateogory</dt>
+			<dd>{{skill.category}}</dd>
+			
+			<dt>Poster</dt>
+			<dd><a href="{%url 'profile_url' skill.member.user.pk%}">{{skill.member}}</a></dd>
+			
+			<dt>Contact</dt>
+			<dd><a href="mailto:{{skill.contactemail}}">Contact member!</a></dd>
+			
+			<dt>Skills</dt>
+			<dd>
+				{% for this in skill.tags_set.all %}
+					<span class="badge">this.name</span>
+				{% endfor %}
+			</dd>
+		</dl>
+    </div>
+  </div>
+
+
+<div class="row">
+	Find <a href="{% url 'offer_related_url' skill.pk  %}">offers that match</a> your set of skills!
+</div>
+
 {% endblock %}
