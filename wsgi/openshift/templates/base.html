@@ -76,6 +76,8 @@
                         {% else %}
                         <li><a href="{% url 'skill_member_url' request.user.member.pk %}">My Skills</a></li>
                         {% endif %}
+                        <li>  <a href="{% url 'member_update_url' %}">Edit Profile</a>
+
                       </ul>
                     </li>
                     <li><a href="{% url 'account_logout' %}">Logout</a></li>
