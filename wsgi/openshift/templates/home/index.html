@@ -42,39 +42,36 @@
 
     <div class="container">
 
-        <div class="row section">
+        <div class="row">
             <div class="col-lg-12">
-                <h1>Connector</h1>
-                <p>Connect with amateur professionals to help further along your club or other busienss needs!  Local college and universities want to build their resume to help further along their career!</p>
-                 
-                 <p style="text-align: center">
-                  <a class="btn btn-primary btn-large" href="{% url 'create_member_freelancer_url' %}">
-                    Sign up as a freelancer!
-                  </a>
-                 </p>
-
-                 <p style="text-align: center">
-                  <a class="btn btn-primary btn-large" href="{% url 'create_member_poster_url' %}">
-                    Sign up as a Job poster!
-                  </a>
-                 </p>
+                <h1 class="text-center">Connector</h1>
+                <p class="lead">Are you a student looking for something to help your resume?  Have a lot of skills that you want to share wih the community? Maybe you are a club that really wants to get your information out to the student population, but you don't know how to take the next steps!  Connect with different people who can help you start up your organization or business and see where Connector can take you!</p>
             </div>
         </div>
 
-        <div class="row section">
-            <div class="col-lg-6">
-                <h1>Skills</h1>
-                <p>
-                  Post your skills to the community near your school and build your portfolio and resume!  Skills can include anything from 
-                  photography, web developement, mobile developers, or more!
-                 </p>
+        <div class="row">
+          <div class="col-sm-8 col-md-4 col-md-offset-2">
+            <div class="thumbnail">
+              <img src="{% static 'images/photographer.jpg' %}" alt="Photographer taking pictures" class="img-rounded">
+              <div class="caption">
+                <h3>Skills</h3>
+                <p>Post your skills to the community near your school and build your portfolio and resume!  Skills can include anything from 
+                  photography, web developement, mobile developers, or more!</p>
+                <p><a href="{% url 'create_member_freelancer_url' %}" class="btn btn-primary" role="button">Freelancer Sign Up</a> <a href="{% url 'skill_list_url' %}" class="btn btn-default" role="button">All Skills</a></p>
+              </div>
             </div>
-            <div class="col-lg-6">
-                <h1>Offers</h1>
-                <p>
-                  Do you have a club's web page that needs to be completed?  Perhaps you would like graduation photos and you are on a very tight budget!  Connect with people who have these skills and get all tasks no matter how big or small done!
-                </p>
+          </div>
+
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="{% static 'images/handsoncomputer.jpg' %}" alt="Hands typing on a computer" class="img-rounded">
+              <div class="caption">
+                <h3>Offers</h3>
+                <p> Do you have a club's web page that needs to be completed?  Perhaps you would like graduation photos and you are on a very tight budget!  Connect with people who have these skills and get all tasks no matter how big or small done! </p>
+                <p><a href="{% url 'create_member_poster_url' %}" class="btn btn-primary" role="button">Job Poster Sign Up</a> <a href="{% url 'offer_list_url' %}" class="btn btn-default" role="button">All Offers</a></p>
+              </div>
             </div>
+          </div>
         </div>
     </div>
     
