@@ -43,7 +43,11 @@
                 {% empty %}
                 {% if user|can_edit_profile:member %}<p>You do not have an offer! Would you like to <a href="{% url 'skill_create_url' %}">Create a New Offer</a>?</p>{% endif %}
             {% endfor %}  
-		
+
+            <h3>Tags related to person</h3>
+		{% for tag in member.tag_set.all %}
+            <p>tag.name</p>
+        {% endfor %}
     </div>
 </div>
 
