@@ -10,8 +10,8 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
-    <link type="text/css" rel="stylesheet/less" href="static/css/style.less" />
-    <link type="text/css" rel="stylesheet" href="static/js/libs/slider.css" />
+    <link type="text/css" rel="stylesheet/less" href="{% static '/css/style.less' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'js/libs/slider.css' %}" />
 
     {% block extracss %}{% endblock extracss %}
 
