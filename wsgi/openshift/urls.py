@@ -24,7 +24,7 @@ urlpatterns = patterns('haystack.views',
 
 urlpatterns += patterns('',
     # Examples:
-    url(r'^$', 'views.home', name='home_url'),
+    url(r'^$', HomeView.as_view(), name='home_url'),
     # url(r'^$', 'openshift.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     (r'^accounts/', include('allauth.urls')),

@@ -8,6 +8,9 @@ from connector.permissions import *
 from haystack.views import *
 from haystack.query import SearchQuerySet
 
+class HomeView(TemplateView):
+    template_name = 'home/index.html'
+
 class CreateMemberFreelancerView(View):
     def get(self, request):
         request.session['signup_mode'] = Member.MODE_FREELANCER
