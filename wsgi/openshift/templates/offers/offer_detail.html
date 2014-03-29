@@ -20,14 +20,12 @@
 			<dd>{{offer.category}}</dd>
 			<dt>Organization</dt>
 			<dd>{{offer.organization}}</dd>
-			<dt>Budgeted Cost</dt>
-			<dd>{{offer.format_bid_string}}</dd>
 			<dt>State</dt>
 			<dd>{{offer.state}}</dd>
 			<dt>Poster</dt>
 			<dd><a href="{%url 'profile_url' offer.member.user.pk%}">{{offer.member}}</a></dd>
 			<dt>Contact</dt>
-			<dd><a href="mailto:{{offer.contactemail}}">Contact member!</a></dd>
+			<dd><a href="mailto:{{offer.contact_email}}">Contact now!</a></dd>
 		</dl>
     </div>
   </div>
