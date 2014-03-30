@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import ModelForm, Form, CharField
+from django.forms import ModelForm, Form, CharField, BooleanField
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import ValidationError
 from connector.models import *
@@ -8,6 +8,7 @@ from haystack.forms import FacetedSearchForm
 
 class OfferForm(autocomplete_light.ModelForm):
     required_css_class = 'required'
+    independent = BooleanField(required=False)
     class Meta:
         model = Offer
         fields = ['title', 'description', 'organization', 'contact_email', 'cost', 'negotiable', 'cost_notes', 'category', 'tags']
@@ -16,6 +17,21 @@ class OfferForm(autocomplete_light.ModelForm):
             'cost': 'Budget',
             'cost_notes': 'Notes',
         }
+
+    def __init__(self, *args, **kwargs):
+        super(OfferForm, self).__init__(*args, **kwargs)
+        field_order = self.fields.keyOrder
+        field_order.pop(field_order.index('independent'))
+        field_order.insert(3, 'independent')
+
+    def clean(self):
+        cleaned_data = super(OfferForm, self).clean()
+        organization = cleaned_data.get("organization")
+        independent = cleaned_data.get("independent")
+
+        if (not independent) and len(organization)==0:
+            raise ValidationError("Enter an organization or check Independent")
+        return cleaned_data
 
 class SkillForm(autocomplete_light.ModelForm):
     required_css_class = 'required'

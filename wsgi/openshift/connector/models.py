@@ -91,7 +91,7 @@ class Offer(models.Model):
     contact_email = models.EmailField()
     cost = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     negotiable = models.BooleanField(default=True)
-    cost_notes = models.TextField(default="")
+    cost_notes = models.TextField(default="", blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
 
@@ -114,3 +114,9 @@ class Offer(models.Model):
             return "$"+ intcomma(floatformat(self.bid_low, 2))
         else:
             return "P"
+
+    def get_organization(self):
+        if (len(self.organization)):
+            return self.organization
+        else:
+            return "None"
