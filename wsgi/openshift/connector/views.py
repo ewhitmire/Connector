@@ -51,7 +51,10 @@ class MemberUpdateView(DetailView):
             self.user_form.save()
             member = self.member_form.save()
             member.is_setup = True
-            member.mode = request.session.pop('signup_mode')
+            if 'signup_mode' in request.session:
+                member.mode = request.session.pop('signup_mode')
+            else:
+                member.mode = Member.MODE_FREELANCER
             member.save()
             return HttpResponseRedirect(reverse("my_profile_url"))
         else:
