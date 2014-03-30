@@ -30,6 +30,8 @@
         <h3>General Information {% if user|can_edit_profile:member %}<a href="{% url 'member_update_url' %}" class="btn btn-primary">Edit Profile</a></h3>{% endif %}
         Network: {{member.domain}}<br />
         Email: {{member.user.email}}<br />
+        <h3>About</h3>
+        <p>{{ member.about }}</p>
         <h3>Skills {% if user|can_edit_profile:member %}<a href="{% url 'skill_create_url' %}" class="btn btn-primary">Add a New Skill</a>{% endif %}</h3>
         
             {% for skill in member.skill_set.all %}

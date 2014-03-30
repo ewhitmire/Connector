@@ -2,7 +2,6 @@
 {% load bootstrap3 %}
 
 {% block content %}
-{% bootstrap_messages %}
 <form action="{% url 'offer_update_url' offer.pk %}" method="post" class="form">
     {% csrf_token %}
     {% bootstrap_form form %}

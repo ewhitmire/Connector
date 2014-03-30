@@ -29,7 +29,7 @@ class Member(models.Model):
     user = models.OneToOneField(User)
     is_setup = models.BooleanField(editable=False, default=False)
     mode = models.IntegerField(editable=True, choices=MODE_CHOICES, default=MODE_FREELANCER)
-    about = models.TextField(editable=True, default="")
+    about = models.TextField(editable=True, default="", blank=True)
 
     def __str__(self):
         return self.user.__str__()

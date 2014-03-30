@@ -2,7 +2,6 @@
 {% load bootstrap3 %}
 
 {% block content %}
-{% bootstrap_messages %}
 <form action="{% url 'offer_delete_url' offer.pk%}" method="post" class="form">
     {% csrf_token %}
     <p>Are you sure you want to delete "{{ object }}"?</p>
