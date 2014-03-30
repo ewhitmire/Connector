@@ -53,6 +53,7 @@ class MemberUpdateView(DetailView):
             member.is_setup = True
             if 'signup_mode' in request.session:
                 member.mode = request.session.pop('signup_mode')
+                request.session['new_account'] = True;
             else:
                 member.mode = Member.MODE_FREELANCER
             member.save()
@@ -77,6 +78,14 @@ class MyProfileView(ProfileView):
             return HttpResponseRedirect(reverse("member_update_url"))
         return super(MyProfileView, self).get(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(MyProfileView, self).get_context_data(**kwargs)
+        if ('new_account' in self.request.session):
+            self.request.session.pop('new_account')
+            context['signup_mode'] = self.request.user.member.mode
+        else:
+            context['signup_mode'] = -1
+        return context
 
 class OfferRelatedListView(ListView):
     model = Offer

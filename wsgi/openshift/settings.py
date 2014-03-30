@@ -229,17 +229,17 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers':['console', 'logfile'],
+            'handlers':['console'],
             'propagate': True,
             'level':'DEBUG',
         },
         'django.db.backends': {
-            'handlers': ['console', 'logfile'],
+            'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': False,
         },
         'connector': {
-            'handlers': ['console', 'logfile'],
+            'handlers': ['console'],
             'level': 'DEBUG',
         },
     }

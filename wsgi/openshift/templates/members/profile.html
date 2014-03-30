@@ -10,6 +10,21 @@
 
 {% csrf_token %}
 
+
+<script>
+$(function(){
+
+    {% if signup_mode == member.MODE_FREELANCER %}
+        $('#skill_modal').modal();
+    {% elif signup_mode == member.MODE_POSTER %}
+        $('#offer_modal').modal();
+    {% endif %}
+
+});
+</script>
+{% include "skills/prompt_popup.html" %}
+{% include "offers/prompt_popup.html" %}
+
 <div class="row">
     <div class="col-md-8"><!-- breadcrumbs --> </div>
 </div>
