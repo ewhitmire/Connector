@@ -84,21 +84,22 @@ class Offer(models.Model):
     category = models.ForeignKey(Category)
     member = models.ForeignKey(Member, default=None)
     state = models.IntegerField(max_length=20, choices=STATE_CHOICES)
-    organization = models.CharField(max_length=300)
+    organization = models.CharField(max_length=300, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
     description = models.TextField()
     contact_email = models.EmailField()
-    bid_low = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-    bid_high = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    cost = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    negotiable = models.BooleanField(default=True)
+    cost_notes = models.TextField(default="")
     tags = models.ManyToManyField(Tag, blank=True)
 
 
     def is_free(self):
-        return self.bid_high == self.bid_low and self.bid_low == 0
+        return self.cost == 0
 
     def is_set_bid(self):
-        return self.bid_low == self.bid_high
+        return self.cost != 0
 
     def __str__(self):
         return self.title

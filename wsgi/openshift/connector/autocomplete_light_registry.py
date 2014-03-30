@@ -7,7 +7,7 @@ autocomplete_light.register(Tag,
     search_fields=['name'],
     attrs={
         # This will set the input placeholder attribute:
-        'placeholder': 'Other model name ?',
+        'placeholder': 'eg. python, android, graphics',
         # This will set the yourlabs.Autocomplete.minimumCharacters
         # options, the naming conversion is handled by jQuery
         'data-autocomplete-minimum-characters': 1,
@@ -17,7 +17,7 @@ autocomplete_light.register(Tag,
     # yourlabs.Widget.maximumValues (jQuery handles the naming
     # conversion).
     widget_attrs={
-        'data-widget-maximum-values': 4,
+        'data-widget-maximum-values': 10,
         # Enable modern-style widget !
         'class': 'modern-style',
     },

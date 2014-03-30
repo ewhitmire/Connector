@@ -104,7 +104,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-
+    'django_extensions',
     'connector',
 )
 SITE_ID = 1

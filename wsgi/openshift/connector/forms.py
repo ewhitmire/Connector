@@ -7,16 +7,18 @@ import autocomplete_light
 from haystack.forms import FacetedSearchForm
 
 class OfferForm(autocomplete_light.ModelForm):
+    required_css_class = 'required'
     class Meta:
         model = Offer
-        fields = ['title', 'description', 'organization', 'contact_email', 'bid_low', 'bid_high', 'category', 'tags']
+        fields = ['title', 'description', 'organization', 'contact_email', 'cost', 'negotiable', 'cost_notes', 'category', 'tags']
 
         labels = {
-            'bid_low': 'Minimum Bid',
-            'bid_high': 'Maximum Bid',
+            'cost': 'Budget',
+            'cost_notes': 'Notes',
         }
 
 class SkillForm(autocomplete_light.ModelForm):
+    required_css_class = 'required'
     class Meta:
         model = Skill
         fields = ['category', 'description', 'tags']
@@ -31,16 +33,19 @@ class SkillForm(autocomplete_light.ModelForm):
             self._update_errors(e)
 
 class UserForm(ModelForm):
+    required_css_class = 'required'
     class Meta:
         model = User
         fields = ("first_name", "last_name", "email")
 
 class MemberForm(ModelForm):
+    required_css_class = 'required'
     class Meta:
         model = Member
         fields = ['domain', 'about']
 
 class SignupForm(Form):
+    required_css_class = 'required'
     #first_name = CharField(max_length=30, label='First Name')
     #last_name = CharField(max_length=30, label='Last Name')
 
@@ -56,6 +61,7 @@ class SignupForm(Form):
         member.save()
 
 class DrillDownSearchForm(FacetedSearchForm):
+    required_css_class = 'required'
     def no_query_found(self):
         """
         Determines the behavior when no query was found.

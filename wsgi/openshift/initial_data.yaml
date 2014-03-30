@@ -41,8 +41,8 @@
   model: connector.skill
   pk: 4
 - fields:
-    bid_high: '0'
-    bid_low: '0'
+    cost: '0'
+    negotiable: True
     category: 1
     contact_email: emwhitmi@ncsu.edu
     date_last_modified: 2014-03-16 23:10:14.607000+00:00
@@ -57,8 +57,8 @@
   model: connector.offer
   pk: 1
 - fields:
-    bid_high: '0'
-    bid_low: '0'
+    cost: '0'
+    negotiable: False
     category: 2
     contact_email: asfd@ad.com
     date_last_modified: 2014-03-13 19:21:52.187000+00:00
