@@ -95,7 +95,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'south',
-    'connector',
     'bootstrap3',
     'autocomplete_light',
     'autoslug',
@@ -105,11 +104,15 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    'connector',
 )
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/people/me"
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_SIGNUP_FORM_CLASS = "connector.forms.SignupForm"
+ACCOUNT_EMAIL_REQUIRED = True
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
