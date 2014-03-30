@@ -91,7 +91,7 @@ class Offer(models.Model):
     contact_email = models.EmailField()
     bid_low = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     bid_high = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
 
     def is_free(self):
