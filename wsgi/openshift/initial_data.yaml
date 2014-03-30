@@ -43,6 +43,7 @@
 - fields:
     cost: '0'
     negotiable: True
+    time: '10 hours per week'
     category: 1
     contact_email: emwhitmi@ncsu.edu
     date_last_modified: 2014-03-16 23:10:14.607000+00:00
@@ -59,6 +60,7 @@
 - fields:
     cost: '0'
     negotiable: False
+    time: '1 hour per week'
     category: 2
     contact_email: asfd@ad.com
     date_last_modified: 2014-03-13 19:21:52.187000+00:00

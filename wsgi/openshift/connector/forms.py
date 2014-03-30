@@ -11,11 +11,12 @@ class OfferForm(autocomplete_light.ModelForm):
     independent = BooleanField(required=False)
     class Meta:
         model = Offer
-        fields = ['title', 'description', 'organization', 'contact_email', 'cost', 'negotiable', 'cost_notes', 'category', 'tags']
+        fields = ['title', 'category', 'description', 'organization', 'contact_email', 'cost', 'negotiable', 'cost_notes', 'time', 'tags']
 
         labels = {
             'cost': 'Budget',
             'cost_notes': 'Notes',
+            'time': 'Expected Time Commitment',
         }
 
     def __init__(self, *args, **kwargs):

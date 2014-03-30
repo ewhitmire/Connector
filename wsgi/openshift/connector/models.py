@@ -93,6 +93,7 @@ class Offer(models.Model):
     negotiable = models.BooleanField(default=True)
     cost_notes = models.TextField(default="", blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
+    time = models.TextField(default="")
 
 
     def is_free(self):
