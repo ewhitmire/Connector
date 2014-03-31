@@ -112,7 +112,7 @@ class Offer(models.Model):
         if self.is_free():
             return "Free"
         elif offer.is_set_bid():
-            return "$"+ intcomma(floatformat(self.bid_low, 2))
+            return "$"+ intcomma(floatformat(self.cost, 2))
         else:
             return "P"
 
