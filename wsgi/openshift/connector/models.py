@@ -54,7 +54,7 @@ class Skill(models.Model):
     member = models.ForeignKey(Member, default=None)
     category = models.ForeignKey(Category, default=None)
     description = models.TextField()
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     class Meta:
         unique_together = (("member", "category"),)

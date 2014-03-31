@@ -2,3 +2,9 @@
 	content:" *"; 
 	color:#C00;
 }
+
+.signup-btn {
+	width:150px;
+	margin-bottom:5px;
+	margin-top:5px;
+}

@@ -7,10 +7,11 @@
     <script type="text/javascript" src="{% static 'js/libs/jquery.js' %}"></script>
     {% include 'autocomplete_light/static.html' %}
     {% load bootstrap3 %}
-    {% bootstrap_css %}
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/height.css' %}">
+
     {% bootstrap_javascript %}
 
-    <link type="text/css" rel="stylesheet/less" href="{% static '/css/style.less' %}" />
     <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link type="text/css" rel="stylesheet" href="{% static 'css/slider.css' %}" />
 
@@ -23,7 +24,7 @@
 
 <body style="padding-top: 55px;">
     
-    <div id="body" class="container">
+    <div id="body">
         <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -88,7 +89,7 @@
           </div><!-- /.container-fluid -->
         </nav>
 
-       
+       <div class="container">
         {% block content %}{% endblock content %}
 
         <div id="footer" class="row">
@@ -97,6 +98,7 @@
                 &copy; {% now "Y" %} Connector 
             </div>
         </div>
+      </div>
     </div>
 </body>
 </html>
