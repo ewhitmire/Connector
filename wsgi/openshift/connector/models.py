@@ -55,6 +55,8 @@ class Skill(models.Model):
     category = models.ForeignKey(Category, default=None)
     description = models.TextField()
     tags = models.ManyToManyField(Tag, blank=True)
+    portfolio = models.CharField(blank=True, default="", max_length=100)
+    experience = models.TextField()
 
     class Meta:
         unique_together = (("member", "category"),)

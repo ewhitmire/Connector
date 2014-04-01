@@ -23,7 +23,7 @@ class OfferForm(autocomplete_light.ModelForm):
         super(OfferForm, self).__init__(*args, **kwargs)
         field_order = self.fields.keyOrder
         field_order.pop(field_order.index('independent'))
-        field_order.insert(3, 'independent')
+        field_order.insert(4, 'independent')
 
     def clean(self):
         cleaned_data = super(OfferForm, self).clean()
@@ -38,8 +38,12 @@ class SkillForm(autocomplete_light.ModelForm):
     required_css_class = 'required'
     class Meta:
         model = Skill
-        fields = ['category', 'description', 'tags']
+        fields = ['category', 'description', 'experience', 'portfolio', 'tags']
 
+        labels = {
+            'experience': 'Duration of experience in this area',
+            'portfolio': 'Link to online portfolio',
+        }
     def validate_unique(self):
         exclude = self._get_validation_exclusions()
         exclude.remove('member') # allow checking against the missing attribute

@@ -29,7 +29,8 @@
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-              <a class="navbar-brand" href="{% url 'home_url' %}">Connector</a>
+              <img class="navbar-brand" src="{% static 'images/icon.png'%}" style="padding-top:5px; padding-bottom:5px"/>
+              <a class="navbar-brand" href="{% url 'home_url' %}">JobLancer</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,7 +91,7 @@
         <div id="footer" class="row">
             <hr>
             <div class="span12">
-                &copy; {% now "Y" %} Connector 
+                &copy; {% now "Y" %} JobLancer 
             </div>
         </div>
       </div>

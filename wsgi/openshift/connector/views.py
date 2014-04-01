@@ -112,23 +112,31 @@ class OfferCreateView(CreateView):
     form_class = OfferForm
     template_name = 'offers/offer_create.html'
 
+    def get_initial(self):
+        """
+        Returns the initial data to use for forms on this view.
+        """
+        initial = self.initial.copy()
+        initial['contact_email'] = self.request.user.email
+        return initial
+
+
+    def get_success_url(self):
+        return reverse('offer_list_url')
+
     def post(self, request, *args, **kwargs):
         member = request.user.member
+        form = OfferForm(request.POST)
 
-        if request.method == 'POST':
-            form = OfferForm(request.POST)
+        if form.is_valid():
+            self.object = form.save(commit=False)
+            self.object.member = member
+            self.object.state = Offer.STATE_ACTIVE
+            self.object.save()
 
-            if form.is_valid():
-                self.object = form.save(commit=False)
-                self.object.member = member
-                self.object.state = Offer.STATE_ACTIVE
-                self.object.save()
-
-                return HttpResponseRedirect(reverse('offer_list_url'))
-            else:
-                return self.render_to_response(self.get_context_data(form=form))
+            return self.form_valid(form)
         else:
-            form = OfferForm()
+            return self.form_invalid(form)
 
 class OfferDetailView(DetailView):
     model = Offer
