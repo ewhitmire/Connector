@@ -74,10 +74,7 @@ $(function() {
     </div>
   </div>
 
-
-<div class="row">
-	Find <a href="{% url 'offer_related_url' skill.pk  %}">offers that match</a> your set of skills!
-</div>
+{% if user == skill.member.user %}
 
 <div id="related_offer_matches" class="amazon_scroller">
 	<div class="amazon_scroller_mask">
@@ -89,9 +86,22 @@ $(function() {
 					
 			{% endfor %}
 		</ul>
+
+		
+		<ul class="amazon_scroller_nav">
+		<li></li>
+		<li></li>
+		</ul>
 	</div>
 </div>
 
 
+<div class="row">
+	Find <a href="{% url 'offer_related_url' skill.pk  %}">offers that match</a> your set of skills!
+</div>
+
+{% endif %}
+
+<div class="clearfix"></div>
 
 {% endblock %}

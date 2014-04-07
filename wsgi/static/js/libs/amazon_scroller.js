@@ -44,11 +44,11 @@
             dom.find("ul:first").children("li").children("a").each(function(){
                 $(this).append('<div class="amazon_scroller_title">'+$(this).attr("title")+'</div>')
             })
-			dom.find("ul:first").children("li").css("height",n+o+"px");
+            dom.find("ul:first").children("li").css("height",n+o+"px");
         }else{
-			dom.find("ul:first").children("li").css("height",n+"px");
-		}
-		dom.find(".amazon_scroller_title").height(parseInt(o)+"px");
+            dom.find("ul:first").children("li").css("height",n+"px");
+        }
+        dom.find(".amazon_scroller_title").height(parseInt(o)+"px");
         s_s_ul(dom,j,k,l,i);
         s_s_nav(dom.find(".amazon_scroller_nav"),d);
         m=parseInt(m);
@@ -108,36 +108,36 @@
             dom.children(".amazon_scroller_mask").height(v);
             dom.find(".amazon_scroller_nav").css('top',(v-50)/2+parseInt(j)+"px");
             dom.find(".amazon_scroller_nav").width(u+60)
-			dom.find("ul:first").clone().appendTo(dom.children(".amazon_scroller_mask"));
-			dom.children(".amazon_scroller_mask").find("ul:last").css("left",a);
+            dom.find("ul:first").clone().appendTo(dom.children(".amazon_scroller_mask"));
+            dom.children(".amazon_scroller_mask").find("ul:last").css("left",a);
         }
         function previous(){
-			clearTimeout(s);
-			if(t > 0){
-				t--;
-				dom.children(".amazon_scroller_mask").find("ul").animate({
-	                left: '+='+(m+10)
-	            },500);
-			}
+            clearTimeout(s);
+            if(t > 0){
+                t--;
+                dom.children(".amazon_scroller_mask").find("ul").animate({
+                    left: '+='+(m+10)
+                },500);
+            }
         }
         function next(){
             play();
         }
         function play(){
             clearTimeout(s);
-			t++;
-			var a = dom.find("ul:first").children("li").outerWidth(true)*w;
+            t++;
+            var a = dom.find("ul:first").children("li").outerWidth(true)*w;
             if(t >= w+1){
-				t = 0;
-				dom.children(".amazon_scroller_mask").find("ul:first").css("left","0px");
-				dom.children(".amazon_scroller_mask").find("ul:last").css("left",a);
-				s=setTimeout(play,0);
+                t = 0;
+                dom.children(".amazon_scroller_mask").find("ul:first").css("left","0px");
+                dom.children(".amazon_scroller_mask").find("ul:last").css("left",a);
+                s=setTimeout(play,0);
             }else{
-				dom.children(".amazon_scroller_mask").find("ul").animate({
-	                left: '-='+(m+10)
-	            },500);
-				s=setTimeout(play,g);
-			}
+                dom.children(".amazon_scroller_mask").find("ul").animate({
+                    left: '-='+(m+10)
+                },500);
+                s=setTimeout(play,g);
+            }
         }
         function s_s_ul(a,b,c,d,e){
             b=parseInt(b);
@@ -158,3 +158,21 @@
         }
     }
 })(jQuery);
+
+// initalize the slider for this page
+$(function() {
+    $("#related_offer_matches").amazon_scroller({
+        scroller_title_show: 'enable',
+        scroller_time_interval: '8000',
+        scroller_window_background_color: "none",
+        scroller_window_padding: '10',
+        scroller_border_size: '2',
+        scroller_border_color: '#9C6',
+        scroller_images_width: '100',
+        scroller_images_height: '100',
+        scroller_title_size: '11',
+        scroller_title_color: 'black',
+        scroller_show_count: '6',
+        directory: 'images'
+    });
+});
