@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.humanize.templatetags import humanize
+from django.template import defaultfilters
 from autoslug import AutoSlugField
 import os
 
@@ -121,7 +123,7 @@ class Offer(models.Model):
         if self.is_free():
             return "Free"
         elif self.is_set_bid():
-            return "$"+ intcomma(floatformat(self.cost, 2))
+            return "$"+ humanize.intcomma(defaultfilters.floatformat(self.cost, 2))
         else:
             return "P"
 
