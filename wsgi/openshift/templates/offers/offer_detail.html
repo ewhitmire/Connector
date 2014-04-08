@@ -31,9 +31,11 @@
 		</dl>
     </div>
   </div>
-
-<div class="container-fluid">
-<p> Find <a href="{% url 'skill_related_url' offer.pk  %}">freelancers</a> that could be a good match!</p>
-</div>
+  
+{% if user == skill.member.user %}
+	<div class="container-fluid">
+		<p> Find <a href="{% url 'skill_related_url' offer.pk  %}">freelancers</a> that could be a good match!</p>
+	</div>
+{% endif %}
 
 {% endblock %}

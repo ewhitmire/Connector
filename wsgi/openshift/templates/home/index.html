@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+
+{% block extracss %}
+
+<link type="text/css" rel="stylesheet" href="{% static 'css/slider.css' %}" />
+
+{% endblock %}
+
 {% block content %}
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
@@ -87,4 +94,5 @@
   </script>
 
   <div class="clearfix"></div>
-  {% endblock %}
+
+{% endblock %}
