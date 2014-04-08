@@ -104,7 +104,7 @@ class OfferRelatedView(ListView):
 
     def get_queryset(self):
         skill = get_object_or_404(Skill, pk=self.kwargs.get('pk', None))
-        return Offer.objects.filter(category=skill.category).exclude(member=self.request.user.member)
+        return skill.get_related()
 
 class OfferCreateView(CreateView):
     model = Offer
@@ -185,7 +185,7 @@ class SkillRelatedView(ListView):
 
     def get_queryset(self):
         offer = get_object_or_404(Offer, pk=self.kwargs.get('pk', None))
-        return Skill.objects.filter(category=offer.category).exclude(member=self.request.user.member)
+        return offer.get_related()
 
 class SkillCreateView(CreateView):
     model = Skill

@@ -67,6 +67,10 @@ class Skill(models.Model):
     def get_absolute_url(self):
         return reverse('skill_detail_url', args=[self.id])
 
+
+    def get_related(self):
+        return Offer.objects.filter(category=self.category).exclude(member=self.member)
+
 class Offer(models.Model):
     STATE_NEW = 0
     STATE_ACTIVE = 1
@@ -123,3 +127,6 @@ class Offer(models.Model):
             return self.organization
         else:
             return "None"
+
+    def get_related(self):
+        return Skill.objects.filter(category=self.category).exclude(member=self.member)
