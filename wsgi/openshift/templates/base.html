@@ -62,11 +62,8 @@
                       <ul class="dropdown-menu">
                         <li> <a href="{% url 'my_profile_url' %}">My Profile</a></li>
                         <li class="divider"></li>
-                        {% if member.mode == "poster" %}
                         <li><a href="{% url 'offer_member_url' request.user.member.pk %}">My Offers</a></li>
-                        {% else %}
                         <li><a href="{% url 'skill_member_url' request.user.member.pk %}">My Skills</a></li>
-                        {% endif %}
                         <li>  <a href="{% url 'member_update_url' %}">Edit Profile</a>
 
                       </ul>
