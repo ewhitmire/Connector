@@ -59,7 +59,7 @@ $(function() {
 			<dd><a href="{%url 'profile_url' skill.member.user.pk%}">{{skill.member}}</a></dd>
 			
 			<dt>Portfolio</dt>
-			<dd><a href="{{skill.portfolio}}" target="blank">{{skill.portfolio}}</a></dd>
+			<dd>{{ skill.portfolio|urlize }}</dd>
 
 			<dt>Contact</dt>
 			<dd><a href="mailto:{{skill.member.user.email}}">Contact member!</a></dd>
@@ -80,14 +80,15 @@ $(function() {
 	<div class="amazon_scroller_mask">
 		<ul>
 			<li><a href="{% url 'offer_related_url' skill.pk  %}" title="Matching Offers"><img src="{% static 'images/matchingoffers_skillspage.png' %}" width="100" height="100" alt="Matching Offers icon"/></a></li>
-			{% for curOffer in offers.objects.all %} <!--- get all offers -->
+
+			{% for curOffer in skills.get_related %} <!--- get all offers -->
 				
-						<li><a href="{%url 'profile_url' offer.member.user.pk%}"><img src="{% avatar curOffer.member.user %}" width="100" height="100" alt="{{ offer.member.username }}}"/></a></li>
+						<li><a href="{%url 'profile_url' curOffer.member.user.pk%}"><img src="{% avatar curOffer.member.user %}" width="100" height="100" alt="{{ curOffer.member.username }}}"/></a></li>
 					
 			{% endfor %}
 		</ul>
 
-		
+
 		<ul class="amazon_scroller_nav">
 		<li></li>
 		<li></li>
