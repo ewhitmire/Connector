@@ -62,8 +62,8 @@ $(function(){
             {% endfor %}  
 
             <h3>Tags related to person</h3>
-		{% for tag in member.tags_set.all %}
-            <p>tag.name</p>
+		{% for tag in member.get_tags %}
+            <p>{{ tag.name }}</p>
         {% endfor %}
     </div>
 </div>

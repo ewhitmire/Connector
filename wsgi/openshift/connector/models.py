@@ -43,6 +43,9 @@ class Member(models.Model):
     def get_absolute_url(self):
         return reverse('profile_url', args=[self.id])
 
+    def get_tags(self):
+        return Tag.objects.filter(skill__in=self.skill_set.all()).distinct()
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
     parent = models.ForeignKey("self", blank=True, null=True)
@@ -117,7 +120,7 @@ class Offer(models.Model):
     def format_bid_string(self):
         if self.is_free():
             return "Free"
-        elif offer.is_set_bid():
+        elif self.is_set_bid():
             return "$"+ intcomma(floatformat(self.cost, 2))
         else:
             return "P"
