@@ -24,7 +24,12 @@
 			<dd>{{offer.category}}</dd>
 			<dt>Organization</dt>
 			<dd>{{offer.get_organization}}</dd>
-			<dt>Posted by</dt>
+			<dt>Tags</dt>
+			<dd>
+			{% for tag in offer.tags.all %}
+				<a href="{{tag.get_offer_url}}">{{tag.name}}</a>
+			{% endfor %}
+			</dd>			<dt>Posted by</dt>
 			<dd><a href="{%url 'profile_url' offer.member.user.pk%}">{{offer.member}}</a></dd>
 			<dt>Contact</dt>
 			<dd><a href="mailto:{{offer.contact_email}}">Contact now!</a></dd>

@@ -42,7 +42,18 @@
                                 <dd><a href="?q={{ query }}&amp;selected_facets=category_exact:{{ category.0|urlencode }}">{{ category.0 }}</a> ({{ category.1 }})</dd>
                             {% endfor %}
                         {% else %}
-                            <p>No category facets.</p>
+                            <p>No categories.</p>
+                        {% endif %}
+                    </dl>
+                    <dl>
+                        {% if facets.fields.tags %}
+                            <dt class="nav-header">Tag</dt>
+                            {# Provide only the top 5 categories #}
+                            {% for tag in facets.fields.tags|slice:":5" %}
+                                <dd><a href="?q={{ query }}&amp;selected_facets=tags_exact:{{ tag.0|urlencode }}">{{ tag.0 }}</a> ({{ tag.1 }})</dd>
+                            {% endfor %}
+                        {% else %}
+                            <p>No tags.</p>
                         {% endif %}
                     </dl>
                 </div>

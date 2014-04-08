@@ -22,3 +22,7 @@ def skill_badge(skill):
 @register.inclusion_tag('offers/offer_badge.html')
 def offer_badge(offer):
     return {'offer': offer}
+
+@register.filter
+def joinby(value, arg):
+    return arg.join([str(x) for x in value])

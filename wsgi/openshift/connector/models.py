@@ -19,6 +19,15 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return get_skill_url()
+
+    def get_skill_url(self):
+        return "%s?q=&selected_facets=tags_exact:%s" % (reverse("skill_list_url"), self.name)
+
+    def get_offer_url(self):
+        return "%s?q=&selected_facets=tags_exact:%s" % (reverse("offer_list_url"), self.name)
+
 class Member(models.Model):
     MODE_FREELANCER = 0
     MODE_POSTER = 1

@@ -361,7 +361,7 @@ class OfferListView(FacetedSearchView):
     form_class=DrillDownSearchForm
 
     def build_form(self, form_kwargs=None):
-        self.searchqueryset = SearchQuerySet().models(Offer).facet('category')
+        self.searchqueryset = SearchQuerySet().models(Offer).facet('category').facet('tags')
         return super(OfferListView, self).build_form(form_kwargs)
 
 class OfferMemberView(FacetedSearchView):
