@@ -17,8 +17,8 @@
         var j=p&&p.scroller_window_padding?p.scroller_window_padding:"5";
         var k=p&&p.scroller_border_size?p.scroller_border_size:"1";
         var l=p&&p.scroller_border_color?p.scroller_border_color:"black";
-        var m=p&&p.scroller_images_width?p.scroller_images_width:"50";
-        var n=p&&p.scroller_images_height?p.scroller_images_height:"50";
+        var m=p&&p.scroller_images_width?p.scroller_images_width:"100";
+        var n=p&&p.scroller_images_height?p.scroller_images_height:"100";
         var o=p&&p.scroller_title_size?p.scroller_title_size:"12";
         var q=p&&p.scroller_title_color?p.scroller_title_color:"blue";
         var r=p&&p.scroller_show_count?p.scroller_show_count:"6";
@@ -150,7 +150,7 @@
             var c=a.children("li:last");
             a.children("li").css("width","25px");
             a.children("li").css("height","50px");
-            a.children("li").css('background-image','url("'+d+'/arrow.gif")');
+            a.children("li").css('background-image','url("/static/images/arrow.gif")');
             c.css('background-position','right top');
             a.children("li").css('background-repeat','no-repeat');
             c.css('right','0px');
@@ -170,7 +170,7 @@ $(function() {
         scroller_border_color: '#9C6',
         scroller_images_width: '100',
         scroller_images_height: '100',
-        scroller_title_size: '11',
+        scroller_title_size: '18',
         scroller_title_color: 'black',
         scroller_show_count: '6',
         directory: 'images'
