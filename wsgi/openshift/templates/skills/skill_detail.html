@@ -63,7 +63,7 @@ $(function() {
 
 			<dt>Tags</dt>
 			<dd>
-			{% for tag in skill.tags.all %}\
+			{% for tag in skill.tags.all %}
 				<a href="{{tag.get_skill_url}}">{{tag.name}}</a>
 			{% endfor %}
 			</dd>
