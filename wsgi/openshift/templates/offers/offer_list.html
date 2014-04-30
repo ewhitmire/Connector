@@ -5,92 +5,80 @@
 {% block content %}
 <div class="row">
     <div class="col-md-8"><!-- breacrumbs --> </div>
-    <div class="col-md-4" style="text-align:right"><a href="{% url 'offer_create_url' %}" class="btn btn-primary">Post a new offer</a></div>
+    <div class="col-md-4" style="text-align:right"></div>
 </div>
 
 <div class="row">
     <div class="col-md-8">
-        <h1>
-            Offers
-        </h1>
+        <h1>Offers</h1><a href="{% url 'offer_create_url' %}" style="float:left">Post a new offer</a>
     </div>
-    <div class="col-md-4" style="text-align:right">
-        <form class="form-inline" role="form">
-            <div class="form-group has-feedback">
-                <input type="text" class="form-control" id="search" placeholder="Search"/>
-                <span class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-        </form>
-    </div>
+    {% include "offers/offer_search.html" %}
 </div>
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        
-        <!-- sidebar -->
-        {% if facets %}
-        <div class="well sidebar-nav col-md-2" />
-            <p><b>Search Options</b></p>
-            <hr>
+<div class="row">
 
-                <div>
-                    <dl>
-                        {% if facets.fields.category %}
-                            <dt class="nav-header">Category</dt>
-                            {# Provide only the top 5 categories #}
-                            {% for category in facets.fields.category|slice:":5" %}
-                                <dd><a href="?q={{ query }}&amp;selected_facets=category_exact:{{ category.0|urlencode }}">{{ category.0 }}</a> ({{ category.1 }})</dd>
-                            {% endfor %}
-                        {% else %}
-                            <p>No categories.</p>
-                        {% endif %}
-                    </dl>
-                    <dl>
-                        {% if facets.fields.tags %}
-                            <dt class="nav-header">Tag</dt>
-                            {# Provide only the top 5 categories #}
-                            {% for tag in facets.fields.tags|slice:":5" %}
-                                <dd><a href="?q={{ query }}&amp;selected_facets=tags_exact:{{ tag.0|urlencode }}">{{ tag.0 }}</a> ({{ tag.1 }})</dd>
-                            {% endfor %}
-                        {% else %}
-                            <p>No tags.</p>
-                        {% endif %}
-                    </dl>
-                </div>
-                
+    <!-- sidebar -->
+    {% if facets %}
+    <div class="well sidebar-nav col-sm-2">
+        <p><b>Search Options</b></p>
+        <hr>
+
+        <div>
+            <dl>
+                {% if facets.fields.category %}
+                <dt class="nav-header">Category</dt>
+                {# Provide only the top 5 categories #}
+                {% for category in facets.fields.category|slice:":5" %}
+                <dd><a href="?q={{ query }}&amp;selected_facets=category_exact:{{ category.0|urlencode }}">{{ category.0 }}</a> ({{ category.1 }})</dd>
+                {% endfor %}
+                {% else %}
+                <p>No categories.</p>
+                {% endif %}
+            </dl>
+            <dl>
+                {% if facets.fields.tags %}
+                <dt class="nav-header">Tag</dt>
+                {# Provide only the top 5 categories #}
+                {% for tag in facets.fields.tags|slice:":5" %}
+                <dd><a href="?q={{ query }}&amp;selected_facets=tags_exact:{{ tag.0|urlencode }}">{{ tag.0 }}</a> ({{ tag.1 }})</dd>
+                {% endfor %}
+                {% else %}
+                <p>No tags.</p>
+                {% endif %}
+            </dl>
         </div>
-                        {% endif %}
-         
-        <!-- main content -->
-        <div class="row-fluid col-md-10">
+    </div>
+    {% endif %}
+
+    <!-- main content -->
+    <div class="col-sm-10">
+        <div class="row">
 
             {% if query or page.object_list%}
-                {% if query %}
-                    <h3>Results</h3>
-                {% endif %}
-
-                {% for offer in page.object_list %}
-                    {% offer_badge offer.object %}
-                {% empty %}
-                    <p>No results found.</p>
-                {% endfor %}
-
-                {% if page.has_previous or page.has_next %}
-                    <div>
-                        {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-                        |
-                        {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
-                    </div>
-                {% endif %}
-            {% else %}
-                
+            {% if query %}
+            <h3>Results</h3>
             {% endif %}
 
-            
-        </div>      
-    </div>
-</div>
+            {% for offer in page.object_list %}
+            {% offer_badge offer.object %}
+            {% empty %}
+            <p>No results found.</p>
+            {% endfor %}
 
+            {% if page.has_previous or page.has_next %}
+            <div>
+                {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                |
+                {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+            </div>
+            {% endif %}
+            {% else %}
+
+            {% endif %}
+        </div>
+
+    </div>      
+</div>
 
 <div class="clearfix"></div>
 {% endblock %}
