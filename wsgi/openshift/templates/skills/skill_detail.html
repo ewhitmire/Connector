@@ -80,6 +80,7 @@
   </div>
 
 {% if user == skill.member.user %}
+	<h2>Matching Skills</h2>
 	<div id="related_offer_matches" class="amazon_scroller">
 		<div class="amazon_scroller_mask">
 			<ul>
@@ -99,7 +100,7 @@
 
 
 	<div class="row">
-		Find <a href="{% url 'offer_related_url' skill.pk  %}">offers that match</a> your set of skills!
+		See full <a href="{% url 'offer_related_url' skill.pk  %}">list of matches</a>!
 	</div>
 {% endif %}
 
