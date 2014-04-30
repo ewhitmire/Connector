@@ -10,7 +10,6 @@
 
 {% block extracss %}
 <link type="text/css" rel="stylesheet" href="{% static 'css/amazon_scroller.css' %}" />
-
 {% endblock %}
 
 {% block content %}
@@ -52,26 +51,24 @@
   
 {% if user == offer.member.user %}
 
-<div id="related_offer_matches" class="amazon_scroller">
-	<div class="amazon_scroller_mask">
-		<ul>
-			<li><a href="{% url 'skill_related_url' offer.pk  %}" title="Matching Offers"><img src="{% static 'images/matchingskills_offerspage.png' %}" width="100" height="100" alt="Matching Offers icon"/></a></li>
-
-			{% for curSkill in offer.get_related %} <!--- get all offers -->
-						<li><a href="{%url 'profile_url' curSkill.member.user.pk%}" title="{{curSkill.member}}">{% avatar curSkill.member.user 100 %}</a></li>
-			{% endfor %}
-		</ul>
-
+	<div id="related_offer_matches" class="amazon_scroller">
+		<div class="amazon_scroller_mask">
+			<ul>
+				{% for curSkill in offer.get_related %} <!--- get all offers -->
+					<li><a href="{%url 'profile_url' curSkill.member.user.pk%}" title="{{curSkill.member}}">{% avatar curSkill.member.user 100 %}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
 
 		<ul class="amazon_scroller_nav">
-		<li></li>
-		<li></li>
+			<li></li>
+			<li></li>
 		</ul>
+		
 	</div>
-</div>
-	
-	<div class="container-fluid">
-		<p> Find <a href="{% url 'skill_related_url' offer.pk %}">freelancers</a> that could be a good match!</p>
+		
+	<div class="container">
+		<p> See full <a href="{% url 'skill_related_url' offer.pk %}">list of matches</a>!</p>
 	</div>
 {% endif %}
 
