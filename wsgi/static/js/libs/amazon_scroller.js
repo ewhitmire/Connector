@@ -159,20 +159,3 @@
     }
 })(jQuery);
 
-// initalize the slider for this page
-$(function() {
-    $("#related_offer_matches").amazon_scroller({
-        scroller_title_show: 'enable',
-        scroller_time_interval: '8000',
-        scroller_window_background_color: "none",
-        scroller_window_padding: '10',
-        scroller_border_size: '2',
-        scroller_border_color: '#9C6',
-        scroller_images_width: '100',
-        scroller_images_height: '100',
-        scroller_title_size: '18',
-        scroller_title_color: 'black',
-        scroller_show_count: '6',
-        directory: 'images'
-    });
-});

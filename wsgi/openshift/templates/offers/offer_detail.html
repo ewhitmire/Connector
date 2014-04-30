@@ -6,6 +6,26 @@
 {% block extrajs %}
 <script type="text/javascript" src="{% static 'js/libs/amazon_scroller.js' %}"></script>
 <script type="text/javascript" src="chrome-extension://bmdblncegkenkacieihfhpjfppoconhi/in-page-script.js"></script>
+
+<script>
+	// initalize the slider for this page
+	$(function() {
+	    $("#related_offer_matches").amazon_scroller({
+	        scroller_title_show: 'enable',
+	        scroller_time_interval: '8000',
+	        scroller_window_background_color: "none",
+	        scroller_window_padding: '10',
+	        scroller_border_size: '2',
+	        scroller_border_color: '#00820a',
+	        scroller_images_width: '100',
+	        scroller_images_height: '100',
+	        scroller_title_size: '18',
+	        scroller_title_color: 'black',
+	        scroller_show_count: '6',
+	        directory: 'images'
+	    });
+	});
+</script>
 {% endblock %}
 
 {% block extracss %}
@@ -50,7 +70,7 @@
   </div>
   
 {% if user == offer.member.user %}
-
+	<h2>Matching Offers</h2>
 	<div id="related_offer_matches" class="amazon_scroller">
 		<div class="amazon_scroller_mask">
 			<ul>
