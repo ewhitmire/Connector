@@ -23,6 +23,14 @@ def skill_badge(skill):
 def offer_badge(offer):
     return {'offer': offer}
 
+@register.inclusion_tag('offers/offer_minibadge.html')
+def offer_minibadge(offer):
+    return {'offer': offer}
+
+@register.inclusion_tag('skills/skill_minibadge.html')
+def skill_minibadge(skill):
+    return {'skill': skill}
+
 @register.filter
 def joinby(value, arg):
     return arg.join([str(x) for x in value])
