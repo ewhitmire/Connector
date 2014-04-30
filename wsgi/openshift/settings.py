@@ -112,6 +112,12 @@ LOGIN_REDIRECT_URL = "/people/me"
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_SIGNUP_FORM_CLASS = "connector.forms.SignupForm"
 ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = ACCOUNT_EMAIL_REQUIRED
+SOCIALACCOUNT_AUTO_SIGNUP=True
+SOCIALACCOUNT_PROVIDERS = \
+    { 'google':
+        { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email'],
+          'AUTH_PARAMS': { 'access_type': 'online' } }}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

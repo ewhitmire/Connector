@@ -10,7 +10,10 @@
 <h1>{% trans "Sign Up" %}</h1>
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
+Or signin with one of these services:
+<ul class="socialaccount_providers">
+{% include "socialaccount/snippets/provider_list.html" with process="connect" %}
+</ul>
 <form id="signup_form" method="post" action="{% url 'account_signup' %}" class="form-horizontal">
   {% csrf_token %}
   {% bootstrap_form form layout='horizontal' %}

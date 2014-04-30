@@ -28,6 +28,7 @@ class ProfileView(DetailView):
     context_object_name = 'member'
 
     def get_context_data(self, **kwargs):
+        
         context = super(ProfileView, self).get_context_data(**kwargs)
 
         return context
@@ -74,6 +75,12 @@ class MyProfileView(ProfileView):
         return self.request.user.member
 
     def get(self, request, *args, **kwargs):
+        if (not hasattr(self.request.user, 'member')):
+            member = Member()
+            member.user = self.request.user
+            member.domain = Domain.objects.all()[0]
+            member.save()
+
         if not self.get_object().is_setup:
             return HttpResponseRedirect(reverse("member_update_url"))
         return super(MyProfileView, self).get(request, *args, **kwargs)
