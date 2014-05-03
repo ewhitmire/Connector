@@ -21,6 +21,8 @@ packages = ['Django<=1.6',
                   'pyelasticsearch',
                   'django-extensions',
                   'Werkzeug',
+                  'django-voice',
+                  'django-contrib-comments'
                    #  'mysql-connector-python',
                    #  'pymongo',
                    #  'psycopg2',

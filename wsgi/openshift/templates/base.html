@@ -32,6 +32,8 @@
     {% block extracss %}{% endblock extracss %}
 
     {% block extrajs %}{% endblock extrajs %}
+
+
 </head>
 
 <body>
@@ -104,6 +106,10 @@
             </div>
         </div>
       </div>
+      <div class="floating-footer">
+        <a href="{% url 'djangovoice_submit' %}">Submit Feedback</a>
+      </div>
+
     </div>
 </body>
 </html>
