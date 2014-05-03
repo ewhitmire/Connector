@@ -11,7 +11,6 @@
     <div class="col-md-8">
         <h1>Skill</h1><a href="{% url 'skill_create_url' %}" style="float:left">Post a new skill</a>
     </div>
-    {% include "skills/skill_search.html" %}
 </div>
 
 <div class="row">
@@ -19,8 +18,9 @@
     <!-- sidebar -->
     {% if facets %}
     <div class="well sidebar-nav col-md-2">
-        <p><b>Search Options</b></p>
+        {% include "offers/offer_search.html" %}
         <hr>
+        <p><b>Search Options</b></p>
 
         <div>
             <dl>

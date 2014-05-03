@@ -1,10 +1,6 @@
-<div class="col-md-4" style="text-align:right">
-    <form class="form-inline" role="form" action="{% url 'offer_list_url' %}" method="get">
-        <div class="form-group has-feedback">
-            <input type="text" class="form-control" id="id_q" name="q" placeholder="Search"/>
-            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-
+<form class="form-inline" role="form" action="{% url 'offer_list_url' %}" method="get">
+        <div class="form-group">
+            <input type="text" class="form-control input-sm" id="id_q" name="q" placeholder="Search"/>
         </div>
-        <input type="submit" class="btn btn-primary" value="Search"/>
+        <input type="submit" class="btn btn-primary btn-sm" value="Search"/>
     </form>
-</div>
