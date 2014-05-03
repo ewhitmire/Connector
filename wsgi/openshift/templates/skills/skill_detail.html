@@ -37,7 +37,7 @@
 </div>
 
 <div class="row">
-	{% if user|can_edit_skill:skill %}<a href="{% url 'skill_update_url' skill.pk %}">Edit</a>{% endif %}
+	{% if user|can_edit_skill:skill %}<a href="{% url 'skill_update_url' skill.pk %}" class="btn btn-default">Edit</a> <a href="{% url 'skill_delete_url' skill.pk %}" class="btn btn-danger">Delete</a></a>{% endif %}
 </div>
 
 <div class="row">

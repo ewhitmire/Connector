@@ -34,11 +34,11 @@
 
 {% block content %}
 
-{% if user|can_edit_offer:offer %}<a href="{% url 'offer_update_url' offer.pk %}">Edit</a>{% endif %}
 <div class="row">
 	<h1>{{offer.title}}</h1>
 </div>
 
+{% if user|can_edit_offer:offer %}<a href="{% url 'offer_update_url' offer.pk %}" class="btn btn-default">Edit</a> <a href="{% url 'offer_delete_url' offer.pk %}" class="btn btn-danger">Delete</a>{% endif %}
   <div class="row">
     <div class="col-md-8">
      	<h2>Job Description</h2>

@@ -7,7 +7,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-2">
-                <img src="{% avatar_url offer.member.user 40 %}"></img></div>
+                <a href="{{offer.member.user.get_absolute_url}}"><img src="{% avatar_url offer.member.user 40 %}"></img></a></div>
                 <div class="col-xs-7"><h4>{{ offer.category }}</h4></div>
                 <div class="col-xs-3" style="text-align:right"><h4>
                     {{offer.format_bid_string}}
