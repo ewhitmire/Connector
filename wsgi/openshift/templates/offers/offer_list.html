@@ -12,7 +12,7 @@
     <div class="col-md-8">
         <h1>Offers</h1><a href="{% url 'offer_create_url' %}" style="float:left">Post a new offer</a>
     </div>
-    {% include "offers/offer_search.html" %}
+    
 </div>
 
 <div class="row">
@@ -21,6 +21,7 @@
     {% if facets %}
     <div class="well sidebar-nav col-sm-2">
         <p><b>Search Options</b></p>
+        {% include "offers/offer_search.html" %}
         <hr>
 
         <div>
