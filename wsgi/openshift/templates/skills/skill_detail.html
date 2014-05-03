@@ -79,7 +79,7 @@
     </div>
   </div>
 
-{% if user == skill.member.user %}
+{% if user == skill.member.user and and skill.get_related %}
 	<h2>Matching Skills</h2>
 	<div id="related_offer_matches" class="amazon_scroller">
 		<div class="amazon_scroller_mask">
