@@ -105,9 +105,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django_extensions',
-    'django_comments',
-    'qhonuskan_votes',
-    'djangovoice',
     'connector',
 )
 SITE_ID = 1
@@ -161,8 +158,6 @@ TEMPLATE_DIRS = (
 ABSOLUTE_URL_OVERRIDES = {
    'auth.user': lambda o: o.member.get_absolute_url(),
 }
-
-VOICE_ALLOW_ANONYMOUS_USER_SUBMIT = True
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

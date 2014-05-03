@@ -54,13 +54,14 @@ urlpatterns += patterns('',
     url(r'^offers/new$', login_required(OfferCreateView.as_view()), name='offer_create_url'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
-    url(r'^comments/', include('django_comments.urls')),
-    url(r'^feedback/', include('djangovoice.urls')),
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout',{'next_page': '/accounts/login'}),
+
     url(r'^search/$', FacetedSearchView(form_class=FacetedSearchForm, searchqueryset=SearchQuerySet().facet('category')), name='haystack_search'),
     #url(r'^search/', include('haystack.urls')),
 
 )
+
+urlpatterns+=patterns('django.contrib.auth.views',
+    url(r'^login$','login',{'template_name':'login.html'}),)
 
 urlpatterns += patterns('',
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
