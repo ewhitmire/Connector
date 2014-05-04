@@ -54,7 +54,7 @@ urlpatterns += patterns('',
     url(r'^offers/new$', login_required(OfferCreateView.as_view()), name='offer_create_url'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
-
+    url(r'^feedback/', include('feedback_form.urls')),
     url(r'^search/$', FacetedSearchView(form_class=FacetedSearchForm, searchqueryset=SearchQuerySet().facet('category')), name='haystack_search'),
     #url(r'^search/', include('haystack.urls')),
 

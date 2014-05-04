@@ -16,3 +16,4 @@ build/
 *.sqlite3
 media/
 *whoosh_index/*
+sendgrid_settings.py
