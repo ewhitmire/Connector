@@ -70,7 +70,7 @@ else:
     ALLOWED_HOSTS = ['*']
 
 ADMINS = [
-    ("Eric Whitmire", "emwhitmi@ncsu.com"),
+    ("Eric Whitmire", "emwhitmi@ncsu.edu"),
     ("Michelle Hall", "bmhall3@ncsu.edu"),
 ]
 
