@@ -1,4 +1,4 @@
 
 source $OPENSHIFT_HOMEDIR/python/virtenv/venv/bin/activate
-
+cd $OPENSHIFT_DATA_DIR
 python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py retry_deferred
