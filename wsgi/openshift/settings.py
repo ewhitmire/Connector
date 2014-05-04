@@ -31,6 +31,16 @@ if 'OPENSHIFT_PYTHON_IP' in os.environ:
 else:
     OS_IP = '127.0.0.1'
 
+
+if ON_OPENSHIFT:
+    EMAIL_HOST = os.environ['EMAIL_HOST']
+    EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+    EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+else:
+    from sendgrid_settings import *
+
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 # Quick-start development settings - unsuitable for production
@@ -58,6 +68,13 @@ if DEBUG:
     ALLOWED_HOSTS = []
 else:
     ALLOWED_HOSTS = ['*']
+
+ADMINS = [
+    ("Eric Whitmire", "emwhitmi@ncsu.com"),
+    ("Michelle Hall", "bmhall3@ncsu.edu"),
+]
+
+MANAGERS = ADMINS
 
 # Application definition
 
@@ -105,11 +122,13 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django_extensions',
+    'mailer',
+    'feedback_form',
+    'django_libs',
     'connector',
 )
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/people/me"
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_SIGNUP_FORM_CLASS = "connector.forms.SignupForm"
 ACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_QUERY_EMAIL = ACCOUNT_EMAIL_REQUIRED
@@ -119,6 +138,9 @@ SOCIALACCOUNT_PROVIDERS = \
         { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email'],
           'AUTH_PARAMS': { 'access_type': 'online' } }}
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+MAILER_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+FROM_EMAIL = "admin@joblancer.org"
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -127,6 +149,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+FEEDBACK_FORM_COLOR = "#0084d9"
 
 # If you want configure the REDISCLOUD
 if 'REDISCLOUD_URL' in os.environ and 'REDISCLOUD_PORT' in os.environ and 'REDISCLOUD_PASSWORD' in os.environ:

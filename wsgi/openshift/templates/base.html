@@ -29,13 +29,18 @@
       ga('send', 'pageview');
 
     </script>
+
+    <link href="{{ STATIC_URL }}feedback_form/css/feedback_form.css" type="text/css" media="all" rel="stylesheet" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}feedback_form/js/feedback_form.js"></script>
     {% block extracss %}{% endblock extracss %}
 
     {% block extrajs %}{% endblock extrajs %}
 </head>
 
 <body>
-    
+    {% load feedback_tags %}
+{% feedback_form %}
     <div id="body">
         <nav class="navbar navbar-fixed-top navbar-inverse" style="min-width: 574px" role="navigation">
           <div class="container-fluid">
@@ -72,7 +77,7 @@
                 
                 {% if user.is_authenticated %}
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% avatar user 25 %} {{ user.get_full_name }} <b class="caret"></b></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:12px">{% avatar user 25 %} {{ user.get_full_name }} <b class="caret"></b></a>
                       <ul class="dropdown-menu">
                         <li> <a href="{% url 'my_profile_url' %}">My Profile</a></li>
                         <li class="divider"></li>
@@ -96,6 +101,7 @@
 
        <div class="container">
         {% block content %}{% endblock content %}
+        {% block main %}{% endblock main %}
 
         <div id="footer" class="row">
             <hr>
