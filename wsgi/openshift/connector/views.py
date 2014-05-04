@@ -28,6 +28,7 @@ class ProfileView(DetailView):
     context_object_name = 'member'
 
     def get_context_data(self, **kwargs):
+        
         context = super(ProfileView, self).get_context_data(**kwargs)
 
         return context
@@ -74,6 +75,14 @@ class MyProfileView(ProfileView):
         return self.request.user.member
 
     def get(self, request, *args, **kwargs):
+        try:
+            member = self.request.user.member
+        except Member.DoesNotExist:
+            member = Member()
+            member.user = self.request.user
+            member.domain = Domain.objects.all()[0]
+            member.save()
+
         if not self.get_object().is_setup:
             return HttpResponseRedirect(reverse("member_update_url"))
         return super(MyProfileView, self).get(request, *args, **kwargs)
@@ -104,7 +113,7 @@ class OfferRelatedView(ListView):
 
     def get_queryset(self):
         skill = get_object_or_404(Skill, pk=self.kwargs.get('pk', None))
-        return Offer.objects.filter(category=skill.category).exclude(member=self.request.user.member)
+        return skill.get_related()
 
 class OfferCreateView(CreateView):
     model = Offer
@@ -112,23 +121,31 @@ class OfferCreateView(CreateView):
     form_class = OfferForm
     template_name = 'offers/offer_create.html'
 
+    def get_initial(self):
+        """
+        Returns the initial data to use for forms on this view.
+        """
+        initial = self.initial.copy()
+        initial['contact_email'] = self.request.user.email
+        return initial
+
+
+    def get_success_url(self):
+        return reverse('offer_list_url')
+
     def post(self, request, *args, **kwargs):
         member = request.user.member
+        form = OfferForm(request.POST)
 
-        if request.method == 'POST':
-            form = OfferForm(request.POST)
+        if form.is_valid():
+            self.object = form.save(commit=False)
+            self.object.member = member
+            self.object.state = Offer.STATE_ACTIVE
+            self.object.save()
 
-            if form.is_valid():
-                self.object = form.save(commit=False)
-                self.object.member = member
-                self.object.state = Offer.STATE_ACTIVE
-                self.object.save()
-
-                return HttpResponseRedirect(reverse('offer_list_url'))
-            else:
-                return self.render_to_response(self.get_context_data(form=form))
+            return self.form_valid(form)
         else:
-            form = OfferForm()
+            return self.form_invalid(form)
 
 class OfferDetailView(DetailView):
     model = Offer
@@ -177,7 +194,7 @@ class SkillRelatedView(ListView):
 
     def get_queryset(self):
         offer = get_object_or_404(Offer, pk=self.kwargs.get('pk', None))
-        return Skill.objects.filter(category=offer.category).exclude(member=self.request.user.member)
+        return offer.get_related()
 
 class SkillCreateView(CreateView):
     model = Skill
@@ -353,7 +370,7 @@ class OfferListView(FacetedSearchView):
     form_class=DrillDownSearchForm
 
     def build_form(self, form_kwargs=None):
-        self.searchqueryset = SearchQuerySet().models(Offer).facet('category')
+        self.searchqueryset = SearchQuerySet().models(Offer).facet('category').facet('tags')
         return super(OfferListView, self).build_form(form_kwargs)
 
 class OfferMemberView(FacetedSearchView):

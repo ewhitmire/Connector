@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+
+{% block extracss %}
+
+<link type="text/css" rel="stylesheet" href="{% static 'css/slider.css' %}" />
+
+{% endblock %}
+
 {% block content %}
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
@@ -12,21 +19,21 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
+      <img src="{% static 'images/redchairswide.jpg'%}" alt="Find skills">
+      <div class="carousel-caption">
+        <h2 class="carousel-caption">Find a job to build your portfolio!</h2>
+      </div>
+    </div>
+    <div class="item">
       <img src="{% static 'images/imgwithphonewide.jpg'%}" alt="Connect with others">
       <div class="carousel-caption">
-        <h2 class="carousel-caption">Connect with amateur professionals!</h2>
+        <h2 class="carousel-caption">Find local talent to accomplish a job!</h2>
       </div>
     </div>
     <div class="item">
       <img src="{% static 'images/emptybarstoolswide.jpg' %}" alt="Find Offers">
       <div class="carousel-caption">
         <h2 class="carousel-caption top">Learn about what skills people are offering!</h2>
-      </div>
-    </div>
-    <div class="item">
-      <img src="{% static 'images/redchairswide.jpg'%}" alt="Find skills">
-      <div class="carousel-caption">
-        <h2 class="carousel-caption">Connect to build your portfolio!</h2>
       </div>
     </div>
   </div>
@@ -40,49 +47,54 @@
   </a>
 </div>
 
-    <div class="container">
 
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="text-center">Connector</h1>
-                <p class="lead">Are you a student looking for something to build your resume? Have skills that you wish to share with your community? Is your club one striving to really get its information out to the student population, but unsure as to how to take the next steps? Connect with different people who can help you start up your organization or business and see where Connector can take you!</p>
-            </div>
-        </div>
-        
-        <a name="signup"></a> 
-        
-        <div class="row">
-          <div class="col-sm-8 col-md-4 col-md-offset-2">
-            <div class="thumbnail">
-              <img src="{% static 'images/photographer.jpg' %}" alt="Photographer taking pictures" class="img-rounded">
-              <div class="caption">
-                <h3>Skills</h3>
-                <p>Post your skills to the community near your school and build your portfolio and resume!  Skills can include anything from 
-                  photography, web developement, mobile developers, or more!</p>
-                <p><a href="{% url 'create_member_freelancer_url' %}" class="btn btn-primary" role="button">Freelancer Sign Up</a> <a href="{% url 'skill_list_url' %}" class="btn btn-default" role="button">All Skills</a></p>
-              </div>
-            </div>
-          </div>
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="text-center">JobLancer</h1>
+    <p class="lead">Looking for something to build your resume?
+      Have skills that you wish to share with your community?
+      Need creative talent for your next project?
+      Use JobLancer to connect with the people you need!</p>
+  </div>
+</div>
 
-          <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="{% static 'images/handsoncomputer.jpg' %}" alt="Hands typing on a computer" class="img-rounded">
-              <div class="caption">
-                <h3>Offers</h3>
-                <p> Do you have a club's web page that needs to be completed?  Perhaps you would like graduation photos and you are on a very tight budget!  Connect with people who have these skills and get all tasks no matter how big or small done! </p>
-                <p><a href="{% url 'create_member_poster_url' %}" class="btn btn-primary" role="button">Job Poster Sign Up</a> <a href="{% url 'offer_list_url' %}" class="btn btn-default" role="button">All Offers</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
+<a name="signup"></a> 
+
+<div class="row col-wrap">
+  <div class="col-xs-3 col-xs-offset-1 thumbnail">
+    <img src="{% static 'images/photographer.jpg' %}" alt="Photographer taking pictures" class="img-rounded" width="100%">
+    <div class="caption">
+      <h3>Skills</h3>
+      <p style="margin-bottom:100px">List your creative skills so JobLancer can connect you with relevant opportunities nearby! Gain experience to build your portfolio. We have opportunities for web developers, photographers, musicians, graphic designers and more!</p>
+        <p style="text-align:center" class="fixed-height col-xs-3">
+          <a href="{% url 'create_member_freelancer_url' %}" class="btn btn-orange signup-btn" role="button">Freelancer Sign Up</a><br/>
+          <a href="{% url 'skill_list_url' %}" class="btn btn-default signup-btn" role="button">All Skills</a>
+        </p>
+      </div>
     </div>
-    
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
+    <div class="col-xs-4">
+      <img src="{% static 'images/home_offer_skill.png' %}" alt="Photographer taking pictures" class="img-rounded" width="100%">
+    </div>
+    <div class="col-xs-3 thumbnail">
+      <img src="{% static 'images/handsoncomputer.jpg' %}" alt="Hands typing on a computer" class="img-rounded" width="100%">
+      <div class="caption">
+        <h3>Offers</h3>
+        <p style="margin-bottom:100px"> Do you have a club's web page that needs to be completed?  Perhaps you would like graduation photos and you are on a very tight budget!  Connect with people who have these skills and get all tasks no matter how big or small done! </p>
+        <p style="text-align:center" class="fixed-height col-xs-3">
+          <a href="{% url 'create_member_poster_url' %}" class="btn btn-blue signup-btn" role="button">Job Poster Sign Up</a><br/>
+          <a href="{% url 'offer_list_url' %}" class="btn btn-default signup-btn" role="button">All Offers</a>
+        </p>
+      </div>
+    </div>
+  </div>
 
-<div class="clearfix"></div>
+  <!-- Script to Activate the Carousel -->
+  <script>
+  $('.carousel').carousel({
+        interval: 5000 //changes the speed
+      })
+  </script>
+
+  <div class="clearfix"></div>
+
 {% endblock %}

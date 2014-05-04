@@ -1,0 +1,17 @@
+.col-wrap {
+    overflow: hidden;
+    position: relative;
+}
+
+.col-wrap [class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+    position: static;
+}
+
+.col-wrap .fixed-height{
+    position: absolute;
+    bottom: 0;
+    margin-left:0;
+    padding-right:40px;
+}

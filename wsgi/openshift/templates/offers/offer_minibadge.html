@@ -1,0 +1,10 @@
+<div class="col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ offer.title|truncatechars:18 }}<a href="{{offer.get_absolute_url}}" style="float:right" class="btn btn-default btn-xs">Details</a></h3>
+        </div>
+        <div class="panel-body">
+            {{ offer.category }}
+        </div>
+    </div>
+</div>

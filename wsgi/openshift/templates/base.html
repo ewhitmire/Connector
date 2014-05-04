@@ -1,50 +1,54 @@
 {% load staticfiles %}
+{% load avatar_tags %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}{% endblock title %}</title>
 
+    <script>
+      if(document.location.host == "connector-ewhitmire.rhcloud.com")
+        window.location = window.location.toString().replace("connector-ewhitmire.rhcloud.com", "www.joblancer.org");
+    </script>
+
     <script type="text/javascript" src="{% static 'js/libs/jquery.js' %}"></script>
     {% include 'autocomplete_light/static.html' %}
     {% load bootstrap3 %}
-    {% bootstrap_css %}
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/height.css' %}"/>
+
     {% bootstrap_javascript %}
 
-    <link type="text/css" rel="stylesheet/less" href="{% static '/css/style.less' %}" />
     <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <link type="text/css" rel="stylesheet" href="{% static 'css/slider.css' %}" />
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+      ga('create', 'UA-50533309-1', 'joblancer.org');
+      ga('send', 'pageview');
+
+    </script>
     {% block extracss %}{% endblock extracss %}
-
-
 
     {% block extrajs %}{% endblock extrajs %}
 </head>
 
-<body style="padding-top: 55px;">
+<body>
     
-    <div id="body" class="container">
-        <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div id="body">
+        <nav class="navbar navbar-fixed-top navbar-inverse" style="min-width: 574px" role="navigation">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-              <a class="navbar-brand" href="{% url 'home_url' %}">Connector</a>
+              <a href="{% url 'home_url' %}"><img class="navbar-brand" src="{% static 'images/icon.png'%}" style="padding-top:5px; padding-bottom:5px"/></a>
+              <a class="navbar-brand" href="{% url 'home_url' %}">JobLancer</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
-                  {% if member.mode == "poster" %}
-                    <li><a href="{% url 'skill_list_url' %}">Skills</a></li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Offers <b class="caret"></b></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="{% url 'offer_list_url' %}">All Offers</a></li>
-                        <li><a href="{% url 'offer_create_url' %}">Create an Offer</a></li>
-                      </ul>
-                    </li>
-                    {% else %}
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Skills <b class="caret"></b></a>
                       <ul class="dropdown-menu">
@@ -52,8 +56,13 @@
                         <li><a href="{% url 'skill_create_url' %}">Add a Skill</a></li>
                       </ul>
                     </li>
-                    <li><a href="{% url 'offer_list_url' %}">Offers</a></li>
-                    {% endif %}
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Offers <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="{% url 'offer_list_url' %}">All Offers</a></li>
+                        <li><a href="{% url 'offer_create_url' %}">Create an Offer</a></li>
+                      </ul>
+                    </li>
                 {% else %}
                     <li><a href="{% url 'skill_list_url' %}">Skills</a></li>
                     <li><a href="{% url 'offer_list_url' %}">Offers</a></li>
@@ -63,15 +72,12 @@
                 
                 {% if user.is_authenticated %}
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.get_full_name }} <b class="caret"></b></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% avatar user 25 %} {{ user.get_full_name }} <b class="caret"></b></a>
                       <ul class="dropdown-menu">
                         <li> <a href="{% url 'my_profile_url' %}">My Profile</a></li>
                         <li class="divider"></li>
-                        {% if member.mode == "poster" %}
                         <li><a href="{% url 'offer_member_url' request.user.member.pk %}">My Offers</a></li>
-                        {% else %}
                         <li><a href="{% url 'skill_member_url' request.user.member.pk %}">My Skills</a></li>
-                        {% endif %}
                         <li>  <a href="{% url 'member_update_url' %}">Edit Profile</a>
 
                       </ul>
@@ -88,15 +94,16 @@
           </div><!-- /.container-fluid -->
         </nav>
 
-       
+       <div class="container">
         {% block content %}{% endblock content %}
 
         <div id="footer" class="row">
             <hr>
             <div class="span12">
-                &copy; {% now "Y" %} Connector 
+                &copy; {% now "Y" %} JobLancer 
             </div>
         </div>
+      </div>
     </div>
 </body>
 </html>

@@ -1,22 +1,25 @@
+{% load avatar_tags %}
 <div class="col-md-6">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">{{ offer.organization }}</h3>
-        </div>
-        <div class="panel-body">
-            <div class="row-fluid">
-                <div class="col-xs-6"><h4>{{ offer.category }}</h4></div>
-                <div class="col-xs-6" style="text-align:right"><h4>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ offer.title }}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-2">
+                <a href="{{offer.member.user.get_absolute_url}}"><img src="{% avatar_url offer.member.user 40 %}"></img></a></div>
+                <div class="col-xs-7"><h4>{{ offer.category }}</h4></div>
+                <div class="col-xs-3" style="text-align:right"><h4>
                     {{offer.format_bid_string}}
                 </h4></div>
             </div>
-            <div class="row-fluid">
+            <div class="row" style="margin-top:10px; margin-bottom:10px;">
                 <div class="col-xs-12" style="height:80px;overflow:hidden">
-                    <b>{{ offer.title }}</b>
+                    <b>{{ offer.organization }}</b>
                     {{ offer.description }}
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row">
                 <div class="col-xs-12" style="text-align:right">
                     <a href="{{offer.get_absolute_url}}" class="btn btn-default">Details</a>
                 </div>

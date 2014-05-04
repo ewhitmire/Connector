@@ -2,7 +2,7 @@
 
 {% load url from future %}
 {% load i18n %}
-{% load bootstrap %}
+{% load bootstrap3 %}
 {% load account %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
@@ -15,7 +15,7 @@
 {% if socialaccount.providers  %}
 <p>{% blocktrans with site.name as site_name %}Please sign in with one
 of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a> 
-for a {{site_name}} account and sign in
+for a JobLancer account and sign in
 below:{% endblocktrans %}</p>
 
 <div class="socialaccount_ballot">
@@ -32,9 +32,9 @@ below:{% endblocktrans %}</p>
 
 {% endif %}
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
+<form class="login form-horizontal" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
-  {{ form|bootstrap }}
+  {% bootstrap_form form layout='horizontal'%}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}

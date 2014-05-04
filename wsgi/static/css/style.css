@@ -2,3 +2,14 @@
 	content:" *"; 
 	color:#C00;
 }
+
+.signup-btn {
+	width:150px;
+	margin-bottom:5px;
+	margin-top:5px;
+}
+
+body {
+  padding-top: 60px;
+  min-width: 574px;
+}

@@ -1,4 +1,7 @@
+
+{% load filters %}
+{{ object.title }}
 {{ object.description }}
-{{ object.tags }}
+{{ object.tags.all|joinby:" " }}
 {{ object.member.user.get_full_name }}
 {{ object.category.name }}

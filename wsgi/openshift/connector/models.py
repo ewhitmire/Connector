@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.humanize.templatetags import humanize
+from django.template import defaultfilters
 from autoslug import AutoSlugField
 import os
 
@@ -16,6 +18,15 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return get_skill_url()
+
+    def get_skill_url(self):
+        return "%s?q=&selected_facets=tags_exact:%s" % (reverse("skill_list_url"), self.name)
+
+    def get_offer_url(self):
+        return "%s?q=&selected_facets=tags_exact:%s" % (reverse("offer_list_url"), self.name)
 
 class Member(models.Model):
     MODE_FREELANCER = 0
@@ -43,6 +54,9 @@ class Member(models.Model):
     def get_absolute_url(self):
         return reverse('profile_url', args=[self.id])
 
+    def get_tags(self):
+        return Tag.objects.filter(skill__in=self.skill_set.all()).distinct()
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
     parent = models.ForeignKey("self", blank=True, null=True)
@@ -54,7 +68,9 @@ class Skill(models.Model):
     member = models.ForeignKey(Member, default=None)
     category = models.ForeignKey(Category, default=None)
     description = models.TextField()
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
+    portfolio = models.CharField(blank=True, default="", max_length=100)
+    experience = models.TextField()
 
     class Meta:
         unique_together = (("member", "category"),)
@@ -64,6 +80,10 @@ class Skill(models.Model):
 
     def get_absolute_url(self):
         return reverse('skill_detail_url', args=[self.id])
+
+
+    def get_related(self):
+        return Offer.objects.filter(category=self.category).exclude(member=self.member)
 
 class Offer(models.Model):
     STATE_NEW = 0
@@ -111,8 +131,8 @@ class Offer(models.Model):
     def format_bid_string(self):
         if self.is_free():
             return "Free"
-        elif offer.is_set_bid():
-            return "$"+ intcomma(floatformat(self.bid_low, 2))
+        elif self.is_set_bid():
+            return "$"+ humanize.intcomma(defaultfilters.floatformat(self.cost, 2))
         else:
             return "P"
 
@@ -121,3 +141,6 @@ class Offer(models.Model):
             return self.organization
         else:
             return "None"
+
+    def get_related(self):
+        return Skill.objects.filter(category=self.category).exclude(member=self.member)

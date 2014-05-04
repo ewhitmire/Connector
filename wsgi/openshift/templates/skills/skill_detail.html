@@ -1,21 +1,51 @@
 {% extends "base.html" %}
 {% load filters %}
+{% load static %}
+{% load avatar_tags %}
+{% block extrajs %}
+<script type="text/javascript" src="{% static 'js/libs/amazon_scroller.js' %}"></script>
+
+<script>
+	// initalize the slider for this page
+	$(function() {
+	    $("#related_offer_matches").amazon_scroller({
+	        scroller_title_show: 'enable',
+	        scroller_time_interval: '8000',
+	        scroller_window_background_color: "none",
+	        scroller_window_padding: '10',
+	        scroller_border_size: '2',
+	        scroller_border_color: '#b84f09',
+	        scroller_images_width: '100',
+	        scroller_images_height: '100',
+	        scroller_title_size: '18',
+	        scroller_title_color: 'black',
+	        scroller_show_count: '6',
+	        directory: 'images'
+	    });
+	});
+</script>
+{% endblock %}
+
+{% block extracss %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/amazon_scroller.css' %}" />
+{% endblock %}
+
 {% block content %}
-
-
 
 <div class="row">
 	<h1>{{offer.title}}</h1>
 </div>
 
 <div class="row">
-	{% if user|can_edit_skill:skill %}<a href="{% url 'skill_update_url' skill.pk %}">Edit</a>{% endif %}
+	{% if user|can_edit_skill:skill %}<a href="{% url 'skill_update_url' skill.pk %}" class="btn btn-default">Edit</a> <a href="{% url 'skill_delete_url' skill.pk %}" class="btn btn-danger">Delete</a></a>{% endif %}
 </div>
 
 <div class="row">
 	<div class="col-md-8">
     	<h2>Skill Description</h2>
 		<p class="lead">{{skill.description}}</p>
+    	<h2>Experience</h2>
+		<p>{{skill.experience}}</p>
 	</div>
 	<div class="col-md-4">
 		<h2>Skill Overview</h2>
@@ -26,8 +56,18 @@
 			<dt>Poster</dt>
 			<dd><a href="{%url 'profile_url' skill.member.user.pk%}">{{skill.member}}</a></dd>
 			
+			<dt>Portfolio</dt>
+			<dd>{{ skill.portfolio|urlize }}</dd>
+
+			<dt>Tags</dt>
+			<dd>
+			{% for tag in skill.tags.all %}
+				<a href="{{tag.get_skill_url}}">{{tag.name}}</a>
+			{% endfor %}
+			</dd>
+
 			<dt>Contact</dt>
-			<dd><a href="mailto:{{skill.contactemail}}">Contact member!</a></dd>
+			<dd><a href="mailto:{{skill.member.user.email}}">Contact member!</a></dd>
 			
 			<dt>Skills</dt>
 			<dd>
@@ -39,9 +79,33 @@
     </div>
   </div>
 
+{% if user == skill.member.user and skill.get_related %}
+	<h2>Matching Skills</h2>
+	<div id="related_offer_matches" class="amazon_scroller">
+		<div class="amazon_scroller_mask">
+			<ul>
+				{% for curOffer in skill.get_related %} <!--- get all offers -->
+					<li><a href="{%url 'profile_url' curOffer.member.user.pk%}" title="{{curOffer.title}}">{% avatar curOffer.member.user 100 %}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
 
-<div class="row">
-	Find <a href="{% url 'offer_related_url' skill.pk  %}">offers that match</a> your set of skills!
-</div>
+		<ul class="amazon_scroller_nav">
+			<li></li>
+			<li></li>
+		</ul>
+		
+	</div>
+	<div style="clear:both"></div>
+
+
+	<div class="row">
+		See full <a href="{% url 'offer_related_url' skill.pk  %}">list of matches</a>!
+	</div>
+{% endif %}
+
+<div class="clearfix"></div>
+
+
 
 {% endblock %}

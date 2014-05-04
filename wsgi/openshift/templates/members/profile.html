@@ -15,9 +15,9 @@
 $(function(){
 
     {% if signup_mode == member.MODE_FREELANCER %}
-        $('#skill_modal').modal();
+    $('#skill_modal').modal();
     {% elif signup_mode == member.MODE_POSTER %}
-        $('#offer_modal').modal();
+    $('#offer_modal').modal();
     {% endif %}
 
 });
@@ -37,33 +37,40 @@ $(function(){
 </div>
 
 <div class="row">
-    <div class="col-md-1">
-       <a href="{% url 'avatar_change' %}">{% avatar user %}</a>
-    </div>
+    <div class="col-sm-3">
+     <a href="{% url 'avatar_change' %}"><img width="100%" src="{% avatar_url member.user 300 %}"></img></a>
+ </div>
 
-    <div class="col-md-8">
-        <h3>General Information {% if user|can_edit_profile:member %}<a href="{% url 'member_update_url' %}" class="btn btn-primary">Edit Profile</a></h3>{% endif %}
+ <div class="col-sm-9">
+
+    <div class="well"><h3>About Me</h3>
+        <p>{{ member.about }}</p></div>
+        <h3>General Information </h3>
         Network: {{member.domain}}<br />
         Email: {{member.user.email}}<br />
-        <h3>About</h3>
-        <p>{{ member.about }}</p>
-        <h3>Skills {% if user|can_edit_profile:member %}<a href="{% url 'skill_create_url' %}" class="btn btn-primary">Add a New Skill</a>{% endif %}</h3>
-        
-            {% for skill in member.skill_set.all %}
-                <p><a href="{{ skill.get_absolute_url }}">{{skill.category}}</a></p>
-                {% empty %}
-                {% if user|can_edit_profile:member %}<p>You do not have a skill! Would you like to <a href="{% url 'skill_create_url' %}">Add a New Skill</a>?</p>{% endif %}
-            {% endfor %}
-        <h3>Offers {% if user|can_edit_profile:member %}<a href="{% url 'offer_create_url' %}" class="btn btn-primary">Add a New Offer</a>{% endif %}</h3>
-            {% for offer in member.offer_set.all %}
-                <p><a href="{{ offer.get_absolute_url }}">{{offer.category}}</a></p>
-                {% empty %}
-                {% if user|can_edit_profile:member %}<p>You do not have an offer! Would you like to <a href="{% url 'skill_create_url' %}">Create a New Offer</a>?</p>{% endif %}
-            {% endfor %}  
+        {% if user|can_edit_profile:member %}<a href="{% url 'member_update_url' %}" class="btn btn-primary">Edit Profile</a>{% endif %}
 
-            <h3>Tags related to person</h3>
-		{% for tag in member.tag_set.all %}
-            <p>tag.name</p>
+        <h3>Skills</h3>
+        
+        {% for skill in member.skill_set.all %}
+        {% skill_minibadge skill %}
+        {% empty %}
+        {% if user|can_edit_profile:member %}<p>You do not have any skills listed!</p>{% endif %}
+        {% endfor %}
+        <div class="clearfix"></div> 
+        {% if user|can_edit_profile:member %}<a href="{% url 'skill_create_url' %}" class="btn btn-orange">Add a New Skill</a>{% endif %}
+        <h3>Offers </h3>
+        {% for offer in member.offer_set.all %}
+        {% offer_minibadge offer %}
+        {% empty %}
+        {% if user|can_edit_profile:member %}<p>You do not have any offers listed!</p>{% endif %}
+        {% endfor %}  
+
+        <div class="clearfix"></div> 
+        {% if user|can_edit_profile:member %}<a href="{% url 'offer_create_url' %}" class="btn btn-blue">Add a New Offer</a>{% endif %}
+        <h3>Related Tags</h3>
+        {% for tag in member.get_tags %}
+        <p><a href="{{tag.get_skill_url}}">{{tag.name}}</a></p>
         {% endfor %}
     </div>
 </div>
