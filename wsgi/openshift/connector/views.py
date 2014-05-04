@@ -75,7 +75,9 @@ class MyProfileView(ProfileView):
         return self.request.user.member
 
     def get(self, request, *args, **kwargs):
-        if (not hasattr(self.request.user, 'member')):
+        try:
+            member = self.request.user.member
+        except Member.DoesNotExist:
             member = Member()
             member.user = self.request.user
             member.domain = Domain.objects.all()[0]
